@@ -34,6 +34,7 @@
   "dependencies": {
     "bootstrap": "^4.0.0",
     "jquery": "^3.3.1",
+    "jquery-ui": "^1.12.1",
     "mdbootstrap": "^4.4.4",
     "node-waves": "^0.7.6",
     "popper.js": "^1.12.9",
