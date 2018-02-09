@@ -19,6 +19,7 @@ module.exports = {
         compress: true,
         stats: "errors-only",   // Only show error messages
         open: true,             // Opens new browser window when running dev server for first time
+        historyApiFallback: true,
         port: 8083
     },
     module: {

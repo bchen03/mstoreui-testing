@@ -126,7 +126,7 @@ export default class SelectionList extends React.Component {
         };
 
         return (
-            <div className="container-fluid mb-4" style={fullSize}>
+            <div className="container-fluid mb-1" style={fullSize}>
                 {/*Header/Items count*/}
                 <div className="row">
                     <div style={selectStyle}>
@@ -163,9 +163,9 @@ export default class SelectionList extends React.Component {
 
                 {/*Pagination*/}
                 <div className="row">
-                    <div style={selectStyle}>
+                    <div style={{width: "200px", float: "left"}}>
                         <nav className="mb-1">
-                            <ul className="pagination pagination-circle pg-blue">
+                            <ul className="pagination pagination-circle" style={{marginLeft: "-10px"}}>
                                 {/*First*/}
                                 <li className={this.canFirstOrPrev ? "page-item" : "page-item disabled"}>
                                     <a className="page-link" onClick={this.first}>First</a>
@@ -186,16 +186,20 @@ export default class SelectionList extends React.Component {
                                 </li>
                                 {/*Last*/}
                                 <li className={this.canLastOrNext ? "page-item" : "page-item disabled"}>
-                                    <a className="page-link" onClick={this.last}>Last</a>
+                                    <a className="page-link" onClick={this.last} style={{}}>
+                                        Last
+                                    </a>
                                 </li>                            
                             </ul>
                         </nav>
                     </div>
-                    <div style={{width:"100px", background: ""}}></div>
+                    <div style={{width: "160px", height: "31px", lineHeight: "31px"}}>
+                        <div style={{float: "right"}}>Page: {this.state.currentPage}</div>
+                    </div>
+                    <div style={{width:"100px"}}></div>
                     <div style={selectStyle}>
                     </div>
                 </div>
-                
             </div>
         );
     }
