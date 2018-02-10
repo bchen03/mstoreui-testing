@@ -206,27 +206,27 @@ export default class SelectionList extends React.Component {
 
     // ES6 examples
     // Method
-    sayHelloMethod() {
-        console.log("Hello Method!");
-    }
+    // sayHelloMethod() {
+    //     console.log("Hello Method!");
+    // }
 
     // Getter
-    get sayHelloGetter() {
-        console.log("Hello Getter!");
-    }
+    // get sayHelloGetter() {
+    //     console.log("Hello Getter!");
+    // }
 
     // Static
-    static sayHelloStatic() {
-        console.log("Hello Static!");
-    }
+    // static sayHelloStatic() {
+    //     console.log("Hello Static!");
+    // }
 
 }
 
 // ES6 examples
-var s = new SelectionList();
-s.sayHelloMethod();
-s.sayHelloGetter;
-SelectionList.sayHelloStatic();
+// var s = new SelectionList();
+// s.sayHelloMethod();
+// s.sayHelloGetter;
+// SelectionList.sayHelloStatic();
 
 FileList.propTypes = {
     title: PropTypes.string,

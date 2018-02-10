@@ -10,8 +10,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-// Feeds
-export class Feeds extends React.Component {
+// FeedList
+export class FeedList extends React.Component {
     constructor(props) {
         super(props);
     }
@@ -25,12 +25,11 @@ export class Feeds extends React.Component {
         };
 
         const toObj = {
-            pathname: "/doubleclick/0",
+            pathname: "/subscriptions/0",
             subscription: { storeid: this.props.storeid }
         };
 
-
-        const feeds = 
+        const feedList = 
             this.props.layout.length === 0 ?
             <div className="">No Feeds exist</div> : 
             this.props.layout.map(item => 
@@ -45,9 +44,9 @@ export class Feeds extends React.Component {
                         </div>
                     </div>
                     <div className="card-data">
-                        <Link to={toObj} 
-                        role="button" 
-                        className="btn btn-sm btn-primary ml-3 mb-3">Subscribe</Link>
+                        <Link to={toObj} role="button" className="btn btn-sm btn-primary ml-3 mb-3">
+                            Subscribe
+                        </Link>
                     </div>
                 </div>
             );
@@ -56,19 +55,19 @@ export class Feeds extends React.Component {
             <div className="d-flex flex-column mb-5">
                 <div className=""><strong>Feeds:</strong></div> 
                 <div className="d-flex flex-row">
-                    {feeds}
+                    {feedList}
                 </div>
             </div>
         );
     }
 }
 
-Feeds.propTypes = {
+FeedList.propTypes = {
     layout: PropTypes.array.isRequired
 }
 
-// Feeds HOC
-function withMockFeeds(WrappedComponent) {
+// FeedList HOC
+function withMockFeedList(WrappedComponent) {
     return class extends React.Component {
         constructor(props) {
             super(props);
@@ -82,32 +81,28 @@ function withMockFeeds(WrappedComponent) {
                         img: "/img/doubleclick.png",
                         description: `DoubleClick LLD provides raw data that can deliver analytics 
                         beyond standard DoubleClick data. To take full advantage, your organization 
-                        will need to: extract, transform, and load large files.`,
-                        link: "/doubleclick/0"
+                        will need to: extract, transform, and load large files.`
                     },
                     {
                         id: "3",
                         title: "DFA Reporting",
                         img: "/img/doubleclick.png",
                         description: `DoubleClick for Advertisers provides aggregate data that can deliver 
-                        standard report metrics.`,
-                        link: ""
+                        standard report metrics.`
                     },
                     {
                         id: "2",
                         title: "Sizmek LLD",
                         img: "/img/sizmek2.png",
                         description: `At Sizmek we believe creating impressions that inspire is vital 
-                        to building meaningful, long-lasting relationships with your customers.`,
-                        link: ""
+                        to building meaningful, long-lasting relationships with your customers.`
                     },
                     {
                         id: "4",
                         title: "Tagr",
                         img: "/img/tagr.jpg",
                         description: `Tagr is a universal JavaScript tag that is placed across a client’s 
-                        website to measure the connection between digital media and site interaction.`,
-                        link: ""
+                        website to measure the connection between digital media and site interaction.`
                     },
                 ]
             }
@@ -119,6 +114,6 @@ function withMockFeeds(WrappedComponent) {
     }
 } 
 
-const MockFeeds = withMockFeeds(Feeds);
+const MockFeedList = withMockFeedList(FeedList);
 
-export default MockFeeds;
+export default MockFeedList;

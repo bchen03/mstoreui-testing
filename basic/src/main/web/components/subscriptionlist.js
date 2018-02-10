@@ -1,46 +1,26 @@
 'use strict';
 
-//import "jquery";
-//import "popper.js";
-import "node-waves";
-import "bootstrap";
-import "mdbootstrap";
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-// StoreHelper
-const StoreHelper = (function() {
-    var thinHr = {
-        marginTop: "0",
-        marginBottom: "0",
-        clear: "both",
-        border: "0",
-        height: "1px",
-        backgroundColor: "#bdbdbd"
-    };
-
-    return {
-        thinHr: thinHr
-    };
-})();
+import Styles from './styles';
 
 // Subscriptions
-export class Subscriptions extends React.Component {
+export class SubscriptionList extends React.Component {
     constructor(props) {
         super(props);
-        console.log("Subscriptions storeId:", this.props.storeid);
+        console.log("SubscriptionList storeId:", this.props.storeid);
     }
 
     render() {
-        let subscriptions =
+        let subscriptionList =
             this.props.subscriptions
             .filter(item => item.storeid === this.props.storeid)
             .map(item => {
 
                 const toObj = {
-                    pathname: "/doubleclick/" + item.id,
+                    pathname: "/subscriptions/" + item.id,
                     subscription: item
                 };
 
@@ -55,18 +35,16 @@ export class Subscriptions extends React.Component {
                 );
             });
 
-        if (subscriptions.length === 0) {
-            subscriptions = <tr><td>No subscriptions found</td><td></td><td></td><td></td><td></td></tr>;
+        if (subscriptionList.length === 0) {
+            subscriptionList = <tr><td>No subscriptions found</td><td></td><td></td><td></td><td></td></tr>;
         }
-
-        console.log("subscriptions:", subscriptions);
 
         return (
             <div className="my-3">
                 <div className="mb-3">
                     <strong>My Subscriptions:</strong>                        
                 </div>
-                <hr style={StoreHelper.thinHr} />
+                <hr style={Styles.thinHr} />
                 <table className="table table-striped">
                     <thead>
                     <tr>
@@ -78,7 +56,7 @@ export class Subscriptions extends React.Component {
                     </tr>
                     </thead>
                     <tbody>
-                        {subscriptions}
+                        {subscriptionList}
                     </tbody>
                 </table>
             </div>
@@ -86,13 +64,13 @@ export class Subscriptions extends React.Component {
     }
 }
 
-Subscriptions.propTypes = {
+SubscriptionList.propTypes = {
     subscriptions: PropTypes.array.isRequired,
     storeid: PropTypes.string
 }
 
-// Subscriptions HOC
-function withSubscriptions(WrappedComponent) {
+// SubscriptionList HOC
+function withSubscriptionList(WrappedComponent) {
     return class extends React.Component {
         constructor(props) {
             super(props);
@@ -153,6 +131,6 @@ function withSubscriptions(WrappedComponent) {
     }
 } 
 
-const MockSubscriptions = withSubscriptions(Subscriptions);
+const MockSubscriptionList = withSubscriptionList(SubscriptionList);
 
-export default MockSubscriptions;
+export default MockSubscriptionList;

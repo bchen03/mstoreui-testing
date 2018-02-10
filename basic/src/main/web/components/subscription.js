@@ -1,32 +1,26 @@
 'use strict';
 
-import "jquery";
-//import "jquery-ui/ui/widgets/datepicker";
-import "popper.js";
-import "node-waves";
-import "bootstrap";
-import "mdbootstrap";
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 
+import Styles from './styles';
 import Header from './header';
 import NavBar from './navbar';
 import SelectionList from './selectionlist';
 
-//import FeedDetailsWithMockLayout from './feeddetails';
+//import MockDynFeedList from './dynfeedlist';
 
 import 'react-datepicker/dist/react-datepicker.css';
 
-export default class DoubleClick extends React.Component {
+class Subscription extends React.Component {
 	constructor(props) {
 		super(props);
 
-		//console.log("DoubleClick:href: ", window.location.href);
-        console.log("DoubleClick props: ", this.props);
+		//console.log("Subscription:href: ", window.location.href);
+        console.log("Subscription.props: ", this.props);
 
 		this.state = {
             availableNetworks: [
@@ -80,9 +74,6 @@ export default class DoubleClick extends React.Component {
         this.doSave = this.doSave.bind(this);
 	}
 
-	componentDidMount() {
-	}
-
     initParameters() {
         if (!this.props.location.subscription ||
             !this.props.location.subscription.parameters)
@@ -99,7 +90,7 @@ export default class DoubleClick extends React.Component {
                     .findIndex(item => item === aitem.value) !== -1; 
             });
 
-            console.log("initParameters networks: ", calcAvailableNetworks, ",", calcSelectedNetworks)
+            console.log("Subscription.initParameters networks: ", calcAvailableNetworks, ",", calcSelectedNetworks)
 
             this.state.availableNetworks = calcAvailableNetworks;
             this.state.selectedNetworks = calcSelectedNetworks;
@@ -116,7 +107,7 @@ export default class DoubleClick extends React.Component {
                 .findIndex(item => item === aitem.value) !== -1; 
             });
 
-            console.log("initParameters advertisers: ", calcAvailableAdvertisers, ",", calcSelectedAdvertisers)
+            console.log("Subscription.initParameters advertisers: ", calcAvailableAdvertisers, ",", calcSelectedAdvertisers)
 
             this.state.availableAdvertisers = calcAvailableAdvertisers;
             this.state.selectedAdvertisers = calcSelectedAdvertisers;
@@ -132,7 +123,7 @@ export default class DoubleClick extends React.Component {
     }
 
     networksUpdated(available, selected) {
-        console.log("networksUpdated: ", available, ",", selected);
+        console.log("Subscription.networksUpdated: ", available, ",", selected);
 
         this.setState({
             availableNetworks: available,
@@ -141,7 +132,7 @@ export default class DoubleClick extends React.Component {
     }
 
     advertisersUpdated(available, selected) {
-        console.log("advertisersUpdated: ", available, ",", selected);
+        console.log("Subscription.advertisersUpdated: ", available, ",", selected);
 
         this.setState({
             availableAdvertisers: available,
@@ -178,9 +169,6 @@ export default class DoubleClick extends React.Component {
             return acc + item.value + ",";
         }, "");
 
-        // let sdt = $("#start-date").datepicker("getDate").toString();
-        // let edt = $("#end-date").datepicker("getDate").toString();
-
         this.setState({
             savedNetworks: networks,
             savedAdvertisers: advertisers,
@@ -190,15 +178,6 @@ export default class DoubleClick extends React.Component {
     }
 
 	render() {
-        const thinHr = {
-            marginTop: "0",
-            marginBottom: "0",
-            clear: "both",
-            border: "0",
-            height: "1px",
-            backgroundColor: "#bdbdbd"
-        };
-
 		return (
 		    <div className="container-fluid" style={{height:"100%", width:"100%"}}>
                 <Header />
@@ -221,7 +200,7 @@ export default class DoubleClick extends React.Component {
 
                     <div className="row">
                         <div className="col mb-4">
-                            <hr style={thinHr}></hr>
+                            <hr style={Styles.thinHr}></hr>
                         </div>
                     </div>
 
@@ -265,7 +244,7 @@ export default class DoubleClick extends React.Component {
                         <div className="col my-3">
                             <button type="button" className="btn btn-primary" onClick={this.doSave}>Save</button>
                             <Link to={
-                                "/storedetails/" + 
+                                "/stores/" + 
                                 (this.props.location &&
                                 this.props.location.subscription && 
                                 this.props.location.subscription.storeid ? 
@@ -285,13 +264,15 @@ export default class DoubleClick extends React.Component {
                         </div>
                     </div>
 
+                    {/*
                     <div className="row">
                         <div className="col mb-4">
-                            <hr style={thinHr}></hr>
+                            <hr style={Styles.thinHr}></hr>
                         </div>
                     </div>
 
-                    {/*<FeedDetailsWithMockLayout/>*/}
+                    <MockDynFeedList />
+                    */}
 
                 </div>
             </div>
@@ -299,9 +280,4 @@ export default class DoubleClick extends React.Component {
 	}
 }
 
-// $(function() {
-//     console.log("Before calling datepicker");   
-//     $( "#start-date" ).datepicker();
-//     $( "#end-date" ).datepicker();
-// });
-
+export default Subscription;

@@ -1,12 +1,5 @@
 'use strict';
 
-import "jquery";
-//import "jquery-ui/ui/widgets/datepicker";
-import "popper.js";
-import "node-waves";
-import "bootstrap";
-import "mdbootstrap";
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
@@ -17,8 +10,8 @@ import SelectionList from './selectionlist';
 
 import 'react-datepicker/dist/react-datepicker.css';
 
-
-class FeedDetails extends React.Component {
+// DynFeedList
+class DynFeedList extends React.Component {
     constructor(props) {
         super(props);
 
@@ -41,21 +34,21 @@ class FeedDetails extends React.Component {
             return acc;
         }, {});
 
-        console.log("buildState result: ", result);
+        console.log("DynFeedList.buildState: ", result);
 
         return result;
     }
 
     selectionUpdated(available, selected) {
-        console.log("selectionUpdated: ", available, ",", selected);
+        console.log("DynFeedList.selectionUpdated: ", available, ",", selected);
     }
 
     dateChanged(date) {
-        console.log("dateChanged: ", available, ",", selected);
+        console.log("DynFeedList.dateChanged: ", available, ",", selected);
     }
 
     render() {
-        console.log("FeedDetails.props.available", this.props.available);
+        console.log("DynFeedList.props.available", this.props.available);
 
         const result = this.props.layout.parameters.map(item => {
             if (item.type === "selectionlist-api") {
@@ -89,7 +82,7 @@ class FeedDetails extends React.Component {
             }                
         });            
 
-        console.log("FeedDetails result: ", result);
+        console.log("DynFeedList.result: ", result);
 
         return (
             <div>{result}</div>        
@@ -97,8 +90,8 @@ class FeedDetails extends React.Component {
     }
 };
 
-// FeedList HOC
-function withMockFeedDetails(WrappedComponent) {
+// DynFeedList HOC
+function withMockDynFeedList(WrappedComponent) {
     return class extends React.Component {
         constructor(props) {
             super(props);
@@ -168,6 +161,6 @@ function withMockFeedDetails(WrappedComponent) {
     }
 } 
 
-const FeedDetailsWithMockLayout = withMockFeedDetails(FeedDetails);
+const MockDynFeedList = withMockDynFeedList(DynFeedList);
 
-export default FeedDetailsWithMockLayout;
+export default MockDynFeedList;
