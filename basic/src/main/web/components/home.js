@@ -4,14 +4,14 @@ import React from 'react';
 
 import Header from './header';
 import NavBar from './navbar';
-import MockStoreList from './storelist';
+import StoreListContainer from '../containers/storelistcontainer';
 
 const Home = (props) => (
     <div className="container-fluid">
         <Header />
         <NavBar />
         <main className="mx-5">
-            <MockStoreList />
+            <StoreListContainer />
         </main>
     </div>
 );

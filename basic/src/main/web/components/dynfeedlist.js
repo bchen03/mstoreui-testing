@@ -161,6 +161,6 @@ function withMockDynFeedList(WrappedComponent) {
     }
 } 
 
-const MockDynFeedList = withMockDynFeedList(DynFeedList);
+const DynFeedListContainer = withMockDynFeedList(DynFeedList);
 
-export default MockDynFeedList;
+export default DynFeedListContainer;

@@ -104,8 +104,6 @@ export default class SelectionList extends React.Component {
                 .slice((this.state.currentPage - 1) * this.state.pageSize, (this.state.currentPage - 1) * this.state.pageSize + this.state.pageSize)
                 .map((item, index) => <option key={item.value} value={item.value}>{item.name}</option>);
 
-        console.log("render.available:", available);
-
         const selected = this.props.selected.map((item, index) => 
             <option key={item.value} value={item.value}>{item.name}</option>            
         );
