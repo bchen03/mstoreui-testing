@@ -1,17 +1,11 @@
 'use strict';
 
-//import "jquery";
-//import "popper.js";
-import "node-waves";
-import "bootstrap";
-import "mdbootstrap";
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 // FeedList
-export class FeedList extends React.Component {
+class FeedList extends React.Component {
     constructor(props) {
         super(props);
     }
@@ -63,6 +57,7 @@ export class FeedList extends React.Component {
 }
 
 FeedList.propTypes = {
+    storeid: PropTypes.string.isRequired,
     layout: PropTypes.array.isRequired
 }
 
@@ -73,47 +68,90 @@ function withMockFeedList(WrappedComponent) {
             super(props);
 
             this.state = {
-                emptyLayout: [],
-                layout: [
-                    {
-                        id: "1",
-                        title: "DoubleClick LLD",
-                        img: "/img/doubleclick.png",
-                        description: `DoubleClick LLD provides raw data that can deliver analytics 
-                        beyond standard DoubleClick data. To take full advantage, your organization 
-                        will need to: extract, transform, and load large files.`
-                    },
-                    {
-                        id: "3",
-                        title: "DFA Reporting",
-                        img: "/img/doubleclick.png",
-                        description: `DoubleClick for Advertisers provides aggregate data that can deliver 
-                        standard report metrics.`
-                    },
-                    {
-                        id: "2",
-                        title: "Sizmek LLD",
-                        img: "/img/sizmek2.png",
-                        description: `At Sizmek we believe creating impressions that inspire is vital 
-                        to building meaningful, long-lasting relationships with your customers.`
-                    },
-                    {
-                        id: "4",
-                        title: "Tagr",
-                        img: "/img/tagr.jpg",
-                        description: `Tagr is a universal JavaScript tag that is placed across a client’s 
-                        website to measure the connection between digital media and site interaction.`
-                    },
-                ]
+                layout: [],
+                isLoading: false,
+                error: ""
             }
+
+            this.getData = this.getData.bind(this);
         }
 
+        componentDidMount() {
+            this.getData();
+        }
+
+        getData() {
+            let data = [
+                {
+                    id: "1",
+                    title: "DoubleClick LLD",
+                    img: "/img/doubleclick.png",
+                    description: `DoubleClick LLD provides raw data that can deliver analytics 
+                    beyond standard DoubleClick data. To take full advantage, your organization 
+                    will need to: extract, transform, and load large files.`
+                },
+                {
+                    id: "3",
+                    title: "DFA Reporting",
+                    img: "/img/doubleclick.png",
+                    description: `DoubleClick for Advertisers provides aggregate data that can deliver 
+                    standard report metrics.`
+                },
+                {
+                    id: "2",
+                    title: "Sizmek LLD",
+                    img: "/img/sizmek2.png",
+                    description: `At Sizmek we believe creating impressions that inspire is vital 
+                    to building meaningful, long-lasting relationships with your customers.`
+                },
+                {
+                    id: "4",
+                    title: "Tagr",
+                    img: "/img/tagr.jpg",
+                    description: `Tagr is a universal JavaScript tag that is placed across a client’s 
+                    website to measure the connection between digital media and site interaction.`
+                },
+            ];
+
+            this.setState({ 
+                isLoading: true, 
+                layout: [], 
+                error: "" 
+            });
+
+            // Simulate calling API that returns a promise 
+            new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    console.log("withMockFeedList.Promise resolved");
+                    resolve(data);
+                }, 100);
+            })
+            .then(result => {
+                console.log("withMockFeedList.Promise.then resolved: ", result);
+                this.setState({
+                    layout: result,
+                    isLoading: false,
+                    error: ""
+                });
+            })
+            .catch(err => {
+                console.log("withMockFeedList.Promise.then rejected: ", err);
+                this.setState({
+                    layout: [],
+                    isLoading: false,
+                    error: err
+                });
+            });
+        }
+        
         render() {
-            return <WrappedComponent layout={this.state.layout} {...this.props} />;
+            return this.state.isLoading ? <div>Loading data, please wait...</div> :
+                this.state.error !== "" ? <div>Error: {this.state.error}</div> : 
+                <WrappedComponent layout={this.state.layout} {...this.props} />;
         }
     }
 } 
 
 const MockFeedList = withMockFeedList(FeedList);
 
-export default MockFeedList;
+export default FeedList;

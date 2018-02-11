@@ -5,8 +5,8 @@ import { Router, Route, Switch, Redirect } from 'react-router-dom';
 import createBrowserHistory from 'history/createBrowserHistory'
 
 import Home from './home';
-import Store from './store';
-import Subscription from './subscription';
+import MockStore from './store';
+import MockSubscription from './subscription';
 
 import 'mdbootstrap/css/bootstrap.min.css';
 import 'mdbootstrap/css/mdb.min.css';
@@ -20,8 +20,8 @@ const App = (props) => {
 			<div>
 				<Switch>
 					<Route exact path="/" component={Home}/>
-					<Route path="/stores/:storeId" component={Store}/>
-					<Route path="/subscriptions/:subscriptionId" component={Subscription}/>
+					<Route path="/stores/:storeId" component={MockStore}/>
+					<Route path="/subscriptions/:subscriptionId" component={MockSubscription}/>
 					<Redirect to="/" />
 				</Switch>
 			</div>
