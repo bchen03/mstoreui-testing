@@ -28,7 +28,7 @@ class StoreList extends React.Component {
         else {
             const storeList = 
                 this.props.stores.map(item => 
-                    <div className="" key={item.id}>
+                    <div className="blue lighten-5" key={item.id}>
                         <Link to={"/stores/" + item.id} role="" className="d-flex list-group-item list-group-item-action mb-2 z-depth-1" >
                             <img className="img-fluid mr-3" src={item.img} style={{width: "70px", height: "70px"}} alt={item.title} />
                             <div className="flex-column">
@@ -77,8 +77,9 @@ class StoreList extends React.Component {
 
         return (
             <div>
-                <div className="d-flex flex-row-reverse mt-2">
-                    <Link to={"/addstore"} role="" className="btn btn-sm btn-primary btn-mdb">
+                <div className="d-flex mt-2">
+                    <div className="mt-3"><strong>My Stores:</strong></div>
+                    <Link to={"/addstore"} role="" className="ml-auto btn btn-sm btn-primary btn-mdb">
                         <i className="fa fa-plus mr-2" />
                         Add Store
                     </Link>

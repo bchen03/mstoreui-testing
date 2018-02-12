@@ -25,7 +25,7 @@ class FeedList extends React.Component {
 
         const feedList = 
             this.props.layout.length === 0 ?
-            <div className="">No Feeds exist</div> : 
+            <div className="">No Data Sources exist</div> : 
             this.props.layout.map(item => 
                 <div className="card" style={cardStyle} key={item.id}>
                     <div className="card-body">
@@ -47,7 +47,7 @@ class FeedList extends React.Component {
 
         return (
             <div className="d-flex flex-column mb-5">
-                <div className=""><strong>Feeds:</strong></div> 
+                <div className=""><strong>Data Sources:</strong></div> 
                 <div className="d-flex flex-row">
                     {feedList}
                 </div>
