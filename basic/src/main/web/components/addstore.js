@@ -11,6 +11,7 @@ import NavBar from './navbar';
 
 import 'react-tabs/style/react-tabs.css';
 
+
 class AddStore extends React.Component {
     constructor(props) {
         super(props);
@@ -29,14 +30,8 @@ class AddStore extends React.Component {
                     <form>
                         <p className="h5 text-center mb-4">Create a New Store</p>
 
-                        <div className="md-form form-sm">
-                            <input type="text" id="name" className="form-control" />
-                            <label htmlFor="name">Store Name</label>
-                        </div>
-                        <div className="md-form form-sm">
-                            <input type="text" id="description" className="form-control" />
-                            <label htmlFor="description">Description</label>
-                        </div>
+                        <MdbInput id="name" name="Store Name" />
+                        <MdbInput id="description" name="Description" />
 
                         <div className="md-form form-sm mt-5 ml-5">
                             <div className="mb-3">Destinations:</div>
@@ -47,43 +42,15 @@ class AddStore extends React.Component {
                                 </TabList>
                 
                                 <TabPanel className="mt-4">
-                                    <div className="md-form form-sm">
-                                        <i className="prefix grey-text"></i>
-                                        <input type="text" id="accesskey" className="form-control" />
-                                        <label htmlFor="accesskey">Access Key</label>
-                                    </div>
-                                    <div className="md-form form-sm">
-                                        <i className="prefix grey-text"></i>
-                                        <input type="text" id="secretkey" className="form-control" />
-                                        <label htmlFor="secretkey">Secret Key</label>
-                                    </div>
-                                    <div className="md-form form-sm">
-                                        <i className="prefix grey-text"></i>
-                                        <input type="text" id="bucket" className="form-control" />
-                                        <label htmlFor="bucket">Bucket Name</label>
-                                    </div>
+                                    <MdbInput id="accesskey" name="Access Key" />
+                                    <MdbInput id="secretkey" name="Secret Key" />
+                                    <MdbInput id="bucket" name="Bucket Name" />
                                 </TabPanel>
                                 <TabPanel className="mt-4">
-                                    <div className="md-form form-sm">
-                                        <i className="prefix grey-text"></i>
-                                        <input type="text" id="connectionstring" className="form-control" />
-                                        <label htmlFor="connectionstring">Connection String</label>
-                                    </div>
-                                    <div className="md-form form-sm">
-                                        <i className="prefix grey-text"></i>
-                                        <input type="text" id="datasource" className="form-control" />
-                                        <label htmlFor="datasource">Data Source</label>
-                                    </div>
-                                    <div className="md-form form-sm">
-                                        <i className="prefix grey-text"></i>
-                                        <input type="text" id="username" className="form-control" />
-                                        <label htmlFor="username">User Name</label>
-                                    </div>
-                                    <div className="md-form form-sm">
-                                        <i className="prefix grey-text"></i>
-                                        <input type="password" id="password" className="form-control" />
-                                        <label htmlFor="password">Password</label>
-                                    </div>
+                                    <MdbInput id="connectionstring" name="Connection String" />
+                                    <MdbInput id="datasource" name="Data Source" />
+                                    <MdbInput id="username" name="User Name" />
+                                    <MdbInput id="password" name="Password" />
                                 </TabPanel>
                             </Tabs>                        
                         </div>
@@ -103,5 +70,50 @@ class AddStore extends React.Component {
 AddStore.propTypes = {
 }
 
+// Component work-around for a bug in MDB inputs where 
+// label doesn't move up when input gets focus
+class MdbInput extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            value: "",
+            className: ""
+        }
+
+        this.inputChanged = this.inputChanged.bind(this);
+        this.activeFocus = this.activeFocus.bind(this);
+        this.blurFocus = this.blurFocus.bind(this);
+    }
+
+    inputChanged(e) {
+        this.setState({value: e.target.value});
+    }
+
+    activeFocus() {
+        this.setState({className: "active"});
+    }
+
+    blurFocus() {
+        this.setState({className: this.state.value ? "active" : ""});
+    }
+
+    render() {
+        return (
+            <div className="md-form form-sm">
+                <i className="prefix grey-text"></i>
+                <input type="text" id={this.props.id} onFocus={this.activeFocus} onBlur={this.blurFocus} onChange={this.inputChanged} className="form-control" />
+                <label htmlFor={this.props.id} className={this.state.className}>{this.props.name}</label>
+            </div>
+        );
+    }
+}
+
+MdbInput.propTypes = {
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired
+}
 
 export default AddStore;
+
+
