@@ -29,6 +29,11 @@ class Login extends React.Component {
     loginClicked(e) {
         e.preventDefault();
         console.log("Login.loginClicked...");
+
+        if (this.state.inputs[0]) {
+            sessionStorage.setItem('email', this.state.inputs[0]);
+        }
+
         this.props.history.push("/home");
     }
 
@@ -38,7 +43,7 @@ class Login extends React.Component {
 
                 <div className="container my-4">
 
-                    <form>
+                    <form style={{ width: "600px", margin: "0 auto"}}>
                         <p className="h5 text-center mb-4">Sign in</p>
 
                         <MdbInput id="email" name="Your Email" value={MpfUtils.emptyIfFalsy(this.state.inputs[0])} inputChanged={(e) => this.inputChanged(0, e)} />

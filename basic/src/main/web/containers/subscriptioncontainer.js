@@ -35,6 +35,8 @@ function withMockSubscription(WrappedComponent) {
             console.log("withMockSubscription.getData() called");
 
             const availableNetworks = [
+                { name: "Hertz (111)", value: "111"},
+                { name: "Beyond Interactive (339)", value: "339"},
                 { name: "Digital Edge - Full Serve (869)", value: "869"},
                 { name: "Friendly (1234)", value: "1234"},
                 { name: "WhatsApp (2222)", value: "2222"},
@@ -48,20 +50,23 @@ function withMockSubscription(WrappedComponent) {
                 { name: "RiteAid (8567)", value: "8567"},
                 { name: "Costco (9234)", value: "9234"},
                 { name: "Honda (9567)", value: "9567"},
-                { name: "Hertz (410601)", value: "410601"},
             ];
 
             const availableAdvertisers = [
-                { name: "Amgen - BiTE DSE", value: "1"},
-                { name: "Amgen - BiTE Education", value: "2"},
-                { name: "Amgen - Blincyto", value: "3"},
-                { name: "Amgen - Chemotherapy", value: "4"},
-                { name: "Amgen - Cholesterol", value: "5"},
-                { name: "Amgen - Corlanor", value: "6"},
-                { name: "Amgen - Enbrel RA", value: "7"},
-                { name: "Amgen - Enbrel RA HCP", value: "8"},
-                { name: "Amgen - ITP", value: "9"},
-                { name: "Amgen - IVA DTC", value: "10"},
+                { name: "Amgen - BiTE DSE", value: "5"},
+                { name: "Amgen - BiTE Education", value: "6"},
+                { name: "Amgen - Blincyto", value: "7"},
+                { name: "Amgen - Chemotherapy", value: "8"},
+                { name: "Amgen - Cholesterol", value: "9"},
+                { name: "Amgen - Corlanor", value: "10"},
+                { name: "Amgen - Enbrel RA", value: "11"},
+                { name: "Amgen - Enbrel RA HCP", value: "12"},
+                { name: "Amgen - ITP", value: "13"},
+                { name: "Amgen - IVA DTC", value: "14"},
+                { name: "Beyond Interactive - 3", value: "123"},
+                { name: "Hertz - Orlando", value: "111111"},
+                { name: "Beyond Interactive - 1", value: "123456"},
+                { name: "Beyond Interactive - 2", value: "654321"},
             ];
 
             this.setState({ 

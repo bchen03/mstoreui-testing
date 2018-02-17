@@ -9,7 +9,7 @@ import StoreListContainer from '../containers/storelistcontainer';
 const Home = (props) => (
     <div className="container-fluid">
         <Header />
-        <NavBar />
+        <NavBar /> 
         <main className="mx-5">
             <StoreListContainer />
         </main>

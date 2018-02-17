@@ -32,6 +32,7 @@
     "test": "jest --verbose"
   },
   "dependencies": {
+    "axios": "^0.17.1",
     "bootstrap": "^4.0.0",
     "history": "^4.7.2",
     "jquery": "^3.3.1",

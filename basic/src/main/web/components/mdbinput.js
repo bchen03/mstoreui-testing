@@ -48,7 +48,7 @@ class MdbInput extends React.Component {
     render() {
         return (
             <div className="md-form form-sm">
-                <i className="prefix grey-text"></i>
+                <i className="grey-text"></i>
                 <input type="text" id={this.props.id} value={this.props.value} onFocus={this.activeFocus} onBlur={this.blurFocus} onChange={this.inputChanged} className="form-control" />
                 <label htmlFor={this.props.id} className={this.state.className}>{this.props.name}</label>
             </div>

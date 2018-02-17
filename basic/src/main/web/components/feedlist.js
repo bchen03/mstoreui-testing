@@ -12,7 +12,7 @@ class FeedList extends React.Component {
 
     render() {
         const cardStyle = {
-            width: "240px",
+            width: "270px",
             height: "370px",
             marginTop: "20px",
             marginRight: "20px"

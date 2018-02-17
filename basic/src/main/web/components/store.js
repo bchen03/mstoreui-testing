@@ -20,7 +20,7 @@ class Store extends React.Component {
 		return (
             <div className="container-fluid">
                 <Header />
-                <NavBar />
+                <NavBar /> 
                 <main className="mx-5 my-4">
                     {/*<Destinations />
                     <div className="my-5"></div>*/}

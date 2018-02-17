@@ -44,3 +44,21 @@ td, th {
     text-align: left;
 }
 
+
+.navbar-nav li.active > a {
+    border-bottom: 2px solid orange;
+}
+
+/*
+.navbar-nav li > a {
+    border-bottom: 2px solid cyan;
+}
+
+.navbar-nav li.active > a {
+    border-bottom: 2px solid orange;
+}
+
+.navbar-nav li.active > a:focus {
+    border-bottom: 2px solid orange;
+}
+*/

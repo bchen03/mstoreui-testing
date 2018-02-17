@@ -7,6 +7,7 @@ import createBrowserHistory from 'history/createBrowserHistory'
 import Login from './login';
 import Home from './home';
 import AddStore from './addstore';
+import SupportPage from './supportpage';
 import StoreContainer from '../containers/storecontainer';
 import SubscriptionContainer from '../containers/subscriptioncontainer';
 
@@ -16,7 +17,6 @@ import '../main.css';
 
 const App = (props) => {
 	const history = createBrowserHistory();
-
 	return (
 		<Router history={history}>
 			<div>
@@ -26,6 +26,7 @@ const App = (props) => {
 					<Route path="/stores/:storeId" component={StoreContainer}/>
 					<Route path="/subscriptions/:subscriptionId" component={SubscriptionContainer}/>
 					<Route path="/addstore" component={AddStore}/>
+					<Route path="/support" component={SupportPage}/>
 					<Redirect to="/" />
 				</Switch>
 			</div>

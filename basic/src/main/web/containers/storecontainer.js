@@ -1,6 +1,7 @@
 'use strict';
 
 import React from 'react';
+import axios from 'axios';
 
 import Header from '../components/header';
 import NavBar from '../components/navbar';
@@ -19,64 +20,8 @@ function withMockStore(WrappedComponent) {
             };
 
             this.getData = this.getData.bind(this);
-        }
 
-        componentDidMount() {
-            this.getData();
-        }
-
-        filterSubscriptions(storeid, subscriptions) {
-            return subscriptions.filter(item => item.storeid === storeid);
-        }
-
-        getData() {
-            let subscriptions = [
-                {
-                    id: "1",
-                    name: "DoubleClick LLD Subscription for store 1",
-                    img: "img/doubleclick.png",
-                    description: `Amgen DoubleClick LLD data`,
-                    createdon: "1/1/2018",
-                    filters: "Networks: Amgen (7788), Advertiser: Amgen - BiTE DSE",
-                    parameters: {
-                        networks: ["7788"],
-                        advertisers: ["1"],
-                        startdate: "Thu Feb 08 2018 13:25:51 GMT-0500",
-                        enddate: "Fri Feb 09 2018 13:25:51 GMT-0500"
-                    },
-                    storeid: "1"
-                },
-                {
-                    id: "2",
-                    name: "DoubleClick LLD Subscription #2 for store 1",
-                    img: "img/doubleclick.png",
-                    description: `Another DoubleClick LLD subscription`,
-                    createdon: "2/1/2018",
-                    filters: "Account: Amgen (7788), Advertiser: Amgen - BiTE Education",
-                    parameters: {
-                        networks: ["7788"],
-                        advertisers: ["2"],
-                        startdate: "Thu Feb 08 2018 13:25:51 GMT-0500",
-                        enddate: "Thu Feb 15 2018 13:25:51 GMT-0500"
-                    },
-                    storeid: "1"
-                },
-                {
-                    id: "3",
-                    name: "DoubleClick LLD Subscription for store 2",
-                    img: "img/doubleclick.png",
-                    description: `Another DoubleClick LLD subscription`,
-                    createdon: "2/1/2018",
-                    filters: "Account: Amgen (7788), Advertiser: Amgen - BiTE Education",
-                    parameters: {
-                        networks: ["7788"],
-                        advertisers: ["2"]
-                    },
-                    storeid: "2"
-                },
-            ];
-
-            let feeds = [
+            this.feeds = [
                 {
                     id: "1",
                     title: "DoubleClick LLD",
@@ -108,6 +53,118 @@ function withMockStore(WrappedComponent) {
                 },
             ];
 
+
+
+        }
+
+        componentDidMount() {
+            this.getData();
+        }
+
+        filterSubscriptions(storeid, subscriptions) {
+            return subscriptions.filter(item => item.storeid === storeid);
+        }
+
+        getData() {
+            this.setState({ 
+                isLoading: true, 
+                subscriptions: [],
+                feeds: [],
+                error: "" 
+            });
+
+            axios.get('http://localhost:8090/v1/stores/' + this.props.match.params.storeId + '/subscriptions', {
+            })
+            .then(response => {
+                console.log("withMockStore.getData success, data: ", response.data.data);
+
+                const subscriptionResults = response.data.data.map(item => {
+                    let subscriptionParameterResults = {};
+                    item.subscriptionParameters.forEach(params => {
+                        subscriptionParameterResults[params.datasourceParameterName] = params.subscriptionParameterValue;
+                    });
+
+                    console.log("withMockStore.getData subscriptionParameters: ", subscriptionParameterResults);
+
+                    return {
+                        id: item.subscriptionId,
+                        name: item.subscriptionName,
+                        img: "img/doubleclick.png",
+                        description: item.subscriptionDescription,
+                        createdon: item.createdOn,
+                        filters: "", //"Networks: Amgen (7788), Advertiser: Amgen - BiTE DSE",
+                        parameters: subscriptionParameterResults,
+                        storeid: item.storeId
+                    };
+                });
+
+                console.log("withMockStore.getData subscriptionResults: ", subscriptionResults);
+
+                this.setState({
+                    subscriptions: subscriptionResults,
+                    feeds: this.feeds,
+                    isLoading: false,
+                });
+            }) 
+            .catch(err => {
+                console.log("withMockStore.getData failed: ", err);
+                this.setState({
+                    isLoading: false,
+                    error: err
+                });
+            });
+
+        }
+
+        getData2() {
+            let subscriptions = [
+                {
+                    id: "1",
+                    name: "DoubleClick LLD Subscription for store 1 (TEST)",
+                    img: "img/doubleclick.png",
+                    description: `Amgen DoubleClick LLD data`,
+                    createdon: "1/1/2018",
+                    filters: "Networks: Amgen (7788), Advertiser: Amgen - BiTE DSE",
+                    parameters: {
+                        network_id: "7788",
+                        advertiser_id: "1",
+                        start_date: "Thu Feb 08 2018 13:25:51 GMT-0500",
+                        end_date: "Fri Feb 09 2018 13:25:51 GMT-0500"
+                    },
+                    storeid: "1"
+                },
+                {
+                    id: "2",
+                    name: "DoubleClick LLD Subscription #2 for store 1 (TEST)",
+                    img: "img/doubleclick.png",
+                    description: `Another DoubleClick LLD subscription`,
+                    createdon: "2/1/2018",
+                    filters: "Account: Amgen (7788), Advertiser: Amgen - BiTE Education",
+                    parameters: {
+                        network_id: "7788",
+                        advertiser_id: "2",
+                        start_date: "Thu Feb 08 2018 13:25:51 GMT-0500",   
+                        end_date: "Thu Feb 15 2018 13:25:51 GMT-0500"
+                    },
+                    storeid: "1"
+                },
+                {
+                    id: "3",
+                    name: "DoubleClick LLD Subscription for store 2 (TEST)",
+                    img: "img/doubleclick.png",
+                    description: `Another DoubleClick LLD subscription`,
+                    createdon: "2/1/2018",
+                    filters: "Account: Amgen (7788), Advertiser: Amgen - BiTE Education",
+                    parameters: {
+                        network_id: "7788",
+                        advertiser_id: "2",
+                        start_date: "Thu Feb 08 2018 13:25:51 GMT-0500",
+                        end_date: "Thu Feb 15 2018 13:25:51 GMT-0500"
+                    },
+                    storeid: "2"
+                },
+            ];
+
             this.setState({ 
                 isLoading: true, 
                 subscriptions: [],
@@ -125,7 +182,7 @@ function withMockStore(WrappedComponent) {
                 new Promise((resolve, reject) => {
                     setTimeout(() => {
                         console.log("withMockStore.Promise processing feeds...");
-                        resolve(feeds);
+                        resolve(this.feeds);
                     }, 100);    
                 }),
             ])

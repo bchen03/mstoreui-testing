@@ -1,6 +1,7 @@
 'use strict';
 
 import React from 'react';
+import axios from 'axios';
 
 import StoreList from '../components/storelist';
 
@@ -23,6 +24,64 @@ function withMockStoreList(WrappedComponent) {
         }
 
         getData() {
+            this.setState({
+                stores: [],
+                isLoading: true,
+                error: ""
+            });
+
+            axios.get('http://localhost:8090/v1/stores', {
+                // params: {
+                //   ID: 12345
+                // }
+            })
+            .then(response => {
+                console.log("withMockStoreList.getData success, data: ", response.data.data);
+
+                const storeResults = response.data.data.map(item => {
+                    const destinationParameterResults = 
+                        item.destinationParameters.map(item => {
+                            return { 
+                                id: item.destinationParameterId, 
+                                name: item.destinationTypeParameterName, 
+                                value: item.destinationParameterValue
+                            }
+                        });
+
+                    console.log("withMockStoreList.getData destinationParameters: ", destinationParameterResults);
+
+                    return {
+                        id: item.storeId,
+                        title: item.storeName,
+                        img: "img/mstore3.png",
+                        description: item.storeDescription,
+                        owner: item.owner,
+                        destination: {
+                            type: item.destinationTypeName,
+                            parameters: destinationParameterResults
+                        }
+                    }
+                });
+
+                console.log("withMockStoreList.getData storeResults: ", storeResults);
+
+                this.setState({
+                    stores: storeResults,
+                    isLoading: false,
+                    error: ""
+                });
+            }) 
+            .catch(err => {
+                console.log("withMockStoreList.getData failed: ", err);
+                this.setState({
+                    stores: [],
+                    isLoading: false,
+                    error: err
+                });
+            });
+        }
+
+        getData2() {
             let data = [
                 {
                     id: "1",

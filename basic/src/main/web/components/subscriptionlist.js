@@ -28,8 +28,8 @@ class SubscriptionList extends React.Component {
                         <td><Link to={toObj}>{item.name}</Link></td>
                         <td><Link to={toObj}>{item.description}</Link></td>
                         <td><Link to={toObj}>{item.createdon}</Link></td>
-                        <td><Link to={toObj}>{item.filters}</Link></td>
-                        <td><Link to={toObj}><i className="fa fa-gear"/></Link></td>
+                        {/*<td><Link to={toObj}>{item.filters}</Link></td>*/}
+                        <td style={{textAlign: "center", verticalAlign: "middle"}}><Link to={toObj}><i className="fa fa-gear"/></Link></td>
                     </tr>
                 );
             });
@@ -40,7 +40,7 @@ class SubscriptionList extends React.Component {
 
         return (
             <div className="my-3">
-                <div className="mb-3">
+                <div className="mb-4">
                     <strong>My Subscriptions:</strong>                        
                 </div>
                 <hr style={Styles.thinHr} />
@@ -48,10 +48,10 @@ class SubscriptionList extends React.Component {
                     <thead>
                     <tr>
                         <th>Name</th>
-                        <th>Description</th>
+                        <th style={{width: "50%"}}>Description</th>
                         <th>Created On</th>
-                        <th>Filters</th>
-                        <th></th>
+                        {/*<th>Filters</th>*/}
+                        <th style={{width: "60px"}}></th>
                     </tr>
                     </thead>
                     <tbody>

@@ -139,7 +139,12 @@ export default class SelectionList extends React.Component {
                 
                 {/*Selects*/}
                 <div className="row">
-                    <select ref={item => this.availableRef = item} multiple="multiple" size={this.state.noOfSelectRows} style={selectStyle} className="">
+                    <select ref={item => this.availableRef = item} 
+                            multiple="multiple" 
+                            size={this.state.noOfSelectRows} 
+                            style={selectStyle} 
+                            onDoubleClick={this.addToSelected} 
+                            className="">
                         {available}
                     </select>
 
@@ -154,7 +159,12 @@ export default class SelectionList extends React.Component {
                         </div>
                     </div>
 
-                    <select ref={item => this.selectedRef = item} multiple="multiple" size={this.state.noOfSelectRows} style={selectStyle} className="">
+                    <select ref={item => this.selectedRef = item} 
+                            multiple="multiple" 
+                            size={this.state.noOfSelectRows} 
+                            style={selectStyle} 
+                            onDoubleClick={this.removeFromSelected} 
+                            className="">
                         {selected}
                     </select>
                 </div>
