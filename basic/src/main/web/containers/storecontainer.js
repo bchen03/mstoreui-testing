@@ -7,7 +7,9 @@ import Header from '../components/header';
 import NavBar from '../components/navbar';
 import Store from '../components/store';
 
-function withMockStore(WrappedComponent) {
+import {mapSubscriptionState} from '../selectors/storeselector';
+
+function withStore(WrappedComponent) {
     return class extends React.Component {
         constructor(props) {
             super(props);
@@ -76,38 +78,15 @@ function withMockStore(WrappedComponent) {
             axios.get('http://localhost:8090/v1/stores/' + this.props.match.params.storeId + '/subscriptions', {
             })
             .then(response => {
-                console.log("withMockStore.getData success, data: ", response.data.data);
-
-                const subscriptionResults = response.data.data.map(item => {
-                    let subscriptionParameterResults = {};
-                    item.subscriptionParameters.forEach(params => {
-                        subscriptionParameterResults[params.datasourceParameterName] = params.subscriptionParameterValue;
-                    });
-
-                    console.log("withMockStore.getData subscriptionParameters: ", subscriptionParameterResults);
-
-                    return {
-                        id: item.subscriptionId,
-                        name: item.subscriptionName,
-                        img: "img/doubleclick.png",
-                        description: item.subscriptionDescription,
-                        createdon: item.createdOn,
-                        filters: "", //"Networks: Amgen (7788), Advertiser: Amgen - BiTE DSE",
-                        parameters: subscriptionParameterResults,
-                        storeid: item.storeId
-                    };
-                });
-
-                console.log("withMockStore.getData subscriptionResults: ", subscriptionResults);
-
+                console.log("withStore.getData success, data: ", response.data.data);
                 this.setState({
-                    subscriptions: subscriptionResults,
+                    subscriptions: mapSubscriptionState(response.data.data),
                     feeds: this.feeds,
                     isLoading: false,
                 });
             }) 
             .catch(err => {
-                console.log("withMockStore.getData failed: ", err);
+                console.log("withStore.getData failed: ", err);
                 this.setState({
                     isLoading: false,
                     error: err
@@ -175,19 +154,19 @@ function withMockStore(WrappedComponent) {
             Promise.all([
                 new Promise((resolve, reject) => {
                     setTimeout(() => {
-                        console.log("withMockStore.Promise processing subscriptions...");
+                        console.log("withStore.Promise processing subscriptions...");
                         resolve(this.filterSubscriptions(this.props.match.params.storeId, subscriptions));
                     }, 100)
                 }),
                 new Promise((resolve, reject) => {
                     setTimeout(() => {
-                        console.log("withMockStore.Promise processing feeds...");
+                        console.log("withStore.Promise processing feeds...");
                         resolve(this.feeds);
                     }, 100);    
                 }),
             ])
             .then(results => {
-                console.log("withMockStore.Promise.then resolved results: ", results);
+                console.log("withStore.Promise.then resolved results: ", results);
                 this.setState({
                     subscriptions: results[0],
                     feeds: results[1],
@@ -195,7 +174,7 @@ function withMockStore(WrappedComponent) {
                 });
             })
             .catch(err => {
-                console.log("withMockStore.Promise.catch rejected: ", err);
+                console.log("withStore.Promise.catch rejected: ", err);
                 this.setState({
                     isLoading: false,
                     error: err
@@ -228,7 +207,7 @@ function withMockStore(WrappedComponent) {
     };
 }
 
-const StoreContainer = withMockStore(Store);
+const StoreContainer = withStore(Store);
 
 export default StoreContainer;
 

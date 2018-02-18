@@ -7,7 +7,7 @@ import NavBar from '../components/navbar';
 import Subscription from '../components/subscription';
 
 
-function withMockSubscription(WrappedComponent) {
+function withSubscription(WrappedComponent) {
     return class extends React.Component {
         constructor(props) {
             super(props);
@@ -23,16 +23,16 @@ function withMockSubscription(WrappedComponent) {
         }
 
         componentDidMount() {
-            console.log("withMockSubscription.componentDidMount()");
+            console.log("withSubscription.componentDidMount()");
             this.getData();
         }
 
         componentWillUnmount() {
-            console.log("withMockSubscription.componentWillUnmount()");
+            console.log("withSubscription.componentWillUnmount()");
         }
 
         getData() {
-            console.log("withMockSubscription.getData() called");
+            console.log("withSubscription.getData() called");
 
             const availableNetworks = [
                 { name: "Hertz (111)", value: "111"},
@@ -79,26 +79,26 @@ function withMockSubscription(WrappedComponent) {
             // Simulate calling API that returns a promise 
             new Promise((resolve, reject) => {
                 setTimeout(() => {
-                     console.log("withMockSubscription.Promise processing networks...");
+                     console.log("withSubscription.Promise processing networks...");
                     resolve(availableNetworks);
                     //reject("==> networks rejected");
                 }, 100);
             })
             .then(
                 result => {
-                    console.log("withMockSubscription.Promise.then resolved networks: ", result);
+                    console.log("withSubscription.Promise.then resolved networks: ", result);
                     this.setState({
                         networks: result
                     });
                     return new Promise((resolve, reject) => {
                         setTimeout(() => {
-                            console.log("withMockSubscription.Promise processing advertisers...");
+                            console.log("withSubscription.Promise processing advertisers...");
                             resolve(availableAdvertisers);
                             //reject("==> Advertisers rejected");
                         }, 100);
                     });
                 }, err => {
-                    console.log("withMockSubscription.Promise.then rejected networks: ", err);
+                    console.log("withSubscription.Promise.then rejected networks: ", err);
                     this.setState({
                         isLoading: false,
                         error: err
@@ -108,14 +108,14 @@ function withMockSubscription(WrappedComponent) {
             .then(
                 result => {
                     if (result) {
-                        console.log("withMockSubscription.Promise.then resolved advertisers: ", result);
+                        console.log("withSubscription.Promise.then resolved advertisers: ", result);
                         this.setState({
                             advertisers: result,
                             isLoading: false,
                         });
                     }
                 }, err => {
-                    console.log("withMockSubscription.Promise.catch rejected advertisers: ", err);
+                    console.log("withkSubscription.Promise.catch rejected advertisers: ", err);
                     this.setState({
                         isLoading: false, 
                         error: this.state.error + "," + err
@@ -149,6 +149,6 @@ function withMockSubscription(WrappedComponent) {
     }
 }
 
-const SubscriptionContainer = withMockSubscription(Subscription);
+const SubscriptionContainer = withSubscription(Subscription);
 
 export default SubscriptionContainer;

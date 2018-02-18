@@ -5,7 +5,9 @@ import axios from 'axios';
 
 import StoreList from '../components/storelist';
 
-function withMockStoreList(WrappedComponent) {
+import {mapStoreListState} from '../selectors/storelistselector';
+
+function withStoreList(WrappedComponent) {
     return class extends React.Component {
         constructor(props) {
             super(props);
@@ -36,43 +38,15 @@ function withMockStoreList(WrappedComponent) {
                 // }
             })
             .then(response => {
-                console.log("withMockStoreList.getData success, data: ", response.data.data);
-
-                const storeResults = response.data.data.map(item => {
-                    const destinationParameterResults = 
-                        item.destinationParameters.map(item => {
-                            return { 
-                                id: item.destinationParameterId, 
-                                name: item.destinationTypeParameterName, 
-                                value: item.destinationParameterValue
-                            }
-                        });
-
-                    console.log("withMockStoreList.getData destinationParameters: ", destinationParameterResults);
-
-                    return {
-                        id: item.storeId,
-                        title: item.storeName,
-                        img: "img/mstore3.png",
-                        description: item.storeDescription,
-                        owner: item.owner,
-                        destination: {
-                            type: item.destinationTypeName,
-                            parameters: destinationParameterResults
-                        }
-                    }
-                });
-
-                console.log("withMockStoreList.getData storeResults: ", storeResults);
-
+                console.log("withStoreList.getData success, data: ", response.data.data);
                 this.setState({
-                    stores: storeResults,
+                    stores: mapStoreListState(response.data.data),
                     isLoading: false,
                     error: ""
                 });
             }) 
             .catch(err => {
-                console.log("withMockStoreList.getData failed: ", err);
+                console.log("withStoreList.getData failed: ", err);
                 this.setState({
                     stores: [],
                     isLoading: false,
@@ -122,12 +96,12 @@ function withMockStoreList(WrappedComponent) {
             // Simulate calling API that returns a promise 
             new Promise((resolve, reject) => {
                 setTimeout(() => {
-                    console.log("withMockStoreList.Promise resolved");
+                    console.log("withStoreList.Promise resolved");
                     resolve(data);
                 }, 100);
             })
             .then(result => {
-                console.log("withMockStoreList.Promise.then resolved: ", result);
+                console.log("withStoreList.Promise.then resolved: ", result);
                 this.setState({
                     stores: result,
                     isLoading: false,
@@ -135,7 +109,7 @@ function withMockStoreList(WrappedComponent) {
                 });
             })
             .catch(err => {
-                console.log("withMockStoreList.Promise.then rejected: ", err);
+                console.log("withStoreList.Promise.then rejected: ", err);
                 this.setState({
                     stores: [],
                     isLoading: false,
@@ -152,6 +126,6 @@ function withMockStoreList(WrappedComponent) {
     }
 } 
 
-const StoreListContainer = withMockStoreList(StoreList);
+const StoreListContainer = withStoreList(StoreList);
 
 export default StoreListContainer;
