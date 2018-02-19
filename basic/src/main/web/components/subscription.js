@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import axios from 'axios';
+import { RadioGroup, RadioButton } from 'react-radio-buttons';
 
 import Styles from './styles';
 import Header from './header';
@@ -168,22 +169,38 @@ class Subscription extends React.Component {
 
         const storeid = this.props.location.subscription.storeid;
 
-        if (this.state.inputs.length < SUBSCRIPTIONNAME) {
+        // TODO: Only create subscriptions for now
+        if (this.props.match.params.subscriptionId !== "0") {
+            console.warn("==> Can only create new Doubleclick subscriptions for now!");
+            return;
+        }
+        
+        if (this.state.inputs.length <= SUBSCRIPTIONNAME) {
             console.error("Subscription.doSave error: Subscription name is missing");
             return;
         }
 
-        if (this.state.inputs.length < SUBSCRIPTIONDESCRIPTION) {
+        if (this.state.inputs.length <= SUBSCRIPTIONDESCRIPTION) {
             console.error("Subscription.doSave error: Subscription description is missing");
             return;
         }
 
-        let networks = this.state.selectedNetworks.reduce((acc, item) => {
-            return acc + item.value + ",";
-        }, "");
+        // TODO: Because of data access token change, populate networks from data access dropdown list
+        let selectedValues = 
+            Array
+            .apply(null, this.availableRef.options)
+            .filter(option => option.selected)
+            .map(option =>  option.value);
 
-        if (networks.length > 0)
-            networks = networks.slice(0, -1);
+
+        let networks = selectedValues.length > 0 ? selectedValues[0] : "";
+
+        // let networks = this.state.selectedNetworks.reduce((acc, item) => {
+        //     return acc + item.value + ",";
+        // }, "");
+
+        // if (networks.length > 0)
+        //     networks = networks.slice(0, -1);
 
         if (networks.length === 0) {
             console.error("Subscription.doSave error: No networks selected");
@@ -213,12 +230,6 @@ class Subscription extends React.Component {
             savedStartDate: this.state.startDate.toString() + " (" + startTimestamp + ")",
             savedEndDate: this.state.endDate.toString() + " (" + endTimestamp + ")"
         });
-
-        // TODO: Only create subscriptions for now
-        if (this.props.match.params.subscriptionId !== "0") {
-            console.warn("==> Can only create new Doubleclick subscriptions for now!");
-            return;
-        }
 
         //const now = new Date().toString();
 
@@ -262,11 +273,23 @@ class Subscription extends React.Component {
     }
 
 	render() {
+        const toObj = {
+            pathname: "/newdataaccess/" + 
+                    (this.props.location &&
+                    this.props.location.subscription && 
+                    this.props.location.subscription.storeid ? 
+                    this.props.location.subscription.storeid :
+                    "0"),
+            newdataaccess: this.props.location.subscription
+        };
+
+        console.log("Subscription.render toObj: ", toObj);
+
 		return (
 		    <div className="container-fluid">
                 <Header />
                 <NavBar /> 
-                <div className="mx-5">
+                <div className="container my-4 px-5">   {/*mx-5*/}
 
                     <div className="row">
                         <div className="col mt-3 mb-1">
@@ -289,7 +312,7 @@ class Subscription extends React.Component {
 
                     <div className="row">
                         <div className="col">
-                            <div className="mt-2" style={{width: "820px"}}>
+                            <div className="mt-2" style={{width: "80%"}}>
                                 <MdbInput 
                                     id="name" 
                                     name="Subscription Name" 
@@ -299,9 +322,9 @@ class Subscription extends React.Component {
                         </div>
                     </div>
 
-                    <div className="row mb-4">
+                    <div className="row mb-1">
                         <div className="col">
-                            <div style={{width: "820px"}}>
+                            <div style={{width: "80%"}}>
                                 <MdbInput 
                                     id="description" 
                                     name="Description" 
@@ -310,7 +333,7 @@ class Subscription extends React.Component {
                             </div>
                         </div>
                     </div>
-
+{/*}
                     <div className="row">
                         <div className="col">
                             <SelectionList 
@@ -320,7 +343,39 @@ class Subscription extends React.Component {
                                 onUpdate={this.networksUpdated} />
                         </div>
                     </div>
-
+*/}
+                    <div className="row mb-4" style={{height: "90px"}}>
+                        <div className="col">
+                            <div className="mb-3" style={{width: "80%"}}>
+                                <span className="">Data Access</span>
+                                <span className="badge badge-pill orange darken-2 float-right">
+                                    <span className="fa fa-plus mr-1"></span>
+                                    <Link 
+                                        to={toObj} 
+                                        role="button" 
+                                        style={{color: "white"}} >
+                                        Request New Data Access
+                                    </Link>
+                                </span>
+                            </div>
+                            <div className="">
+                                <select ref={item => this.availableRef = item} required style={{width: "360px"}}>
+                                    {/*<option value="" disabled selected hidden>Select a token...</option>*/}
+                                    <option value="339">Beyond Interactive</option>
+                                    <option value="869">Digital Edge - Full Serve</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+{/*
+                    <div className="row">
+                        <div className="col mb-4">
+                            <div style={{width: "80%"}}>
+                                <hr style={Styles.thinHr}></hr>
+                            </div>
+                        </div>
+                    </div>
+*/}
                     <div className="row">
                         <div className="col">
                             <SelectionList 
@@ -374,6 +429,8 @@ class Subscription extends React.Component {
                     <div className="card card-body my-3" style={{ display: this.wasSaved ? "block" : "none", width: "84%"}}>
                         <div className="card-text">
                             <div><strong>Saved Items =></strong></div>
+                            <div>{this.state.inputs[0] ? "Name: " + this.state.inputs[0] : null }</div>
+                            <div>{this.state.inputs[1] ? "Description: " + this.state.inputs[1] : null }</div>
                             <div>{this.state.savedNetworks ? "Networks: " + this.state.savedNetworks : null }</div>
                             <div>{this.state.savedAdvertisers ? "Advertisers: " + this.state.savedAdvertisers : null }</div>
                             <div>{this.state.savedStartDate ? "Start Date: " + this.state.savedStartDate : null }</div>

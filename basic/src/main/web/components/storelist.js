@@ -71,7 +71,7 @@ class StoreList extends React.Component {
                 <tr key={item.id}>
                     <td><Link to={"/stores/" + item.id}>{item.title}</Link></td>
                     <td><Link to={"/stores/" + item.id}>{item.description}</Link></td>
-                    <td><Link to={"/stores/" + item.id}>AWS - US East (N. Virginia)</Link></td>
+                    <td><Link to={"/stores/" + item.id}>Amazon Web Services - US East (N. Virginia)</Link></td>
                     <td><Link to={"/stores/" + item.id}>{this.buildDestinationText(item)}</Link></td>
                     <td style={{textAlign: "center", verticalAlign: "middle"}}><Link to={"/stores/" + item.id}><i className="fa fa-gear"/></Link></td>
                 </tr>

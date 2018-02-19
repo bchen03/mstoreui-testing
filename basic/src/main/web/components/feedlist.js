@@ -19,8 +19,9 @@ class FeedList extends React.Component {
         };
 
         const toObj = {
-            pathname: "/subscriptions/0",
-            subscription: { storeid: this.props.storeid }
+            pathname: this.props.storeid === "666" ? "/newdataaccess/666" : "/subscriptions/0",
+            subscription: { storeid: this.props.storeid },
+            newdataaccess: { storeid: this.props.storeid }
         };
 
         const feedList = 
@@ -38,7 +39,10 @@ class FeedList extends React.Component {
                         </div>
                     </div>
                     <div className="card-data">
-                        <Link to={toObj} role="button" className="btn btn-sm btn-primary ml-3 mb-3">
+                        <Link 
+                            to={toObj} 
+                            role="button" 
+                            className="btn btn-sm btn-primary ml-3 mb-3">
                             Subscribe
                         </Link>
                     </div>

@@ -5,7 +5,8 @@ import { Link } from 'react-router-dom';
 
 
 const HOME_ACTIVE_NAVITEM = 0;
-const SUPPORT_ACTIVE_NAVITEM = 1;
+const ACCESS_ACTIVE_NAVITEM = 1;
+const SUPPORT_ACTIVE_NAVITEM = 2;
 
 class NavBar extends React.Component {
     constructor(props) {
@@ -23,20 +24,24 @@ class NavBar extends React.Component {
     initActiveNavItem() {
         const activeNavItem = sessionStorage.getItem("activeNavItem");
         return !activeNavItem || Number(activeNavItem) === HOME_ACTIVE_NAVITEM ? 
-                ["active", ""] : ["", "active"];
+                ["active", "", ""] :  Number(activeNavItem) === ACCESS_ACTIVE_NAVITEM ?
+                ["", "active", ""] : ["", "", "active"];
     }
 
     updateActiveNavItem(activeIndex) {
         sessionStorage.setItem("activeNavItem", activeIndex.toString());
         this.setState({
-            activeNavItem: (Number(activeIndex) === HOME_ACTIVE_NAVITEM) ? ["active", ""] : ["", "active"]
+            activeNavItem: 
+                (Number(activeIndex) === HOME_ACTIVE_NAVITEM) ? 
+                ["active", "", ""] : (Number(activeIndex) === ACCESS_ACTIVE_NAVITEM) ? 
+                ["", "active", ""] : ["", "",  "active"]
         });
     }
 
     render() {
         return (
             <nav className="navbar navbar-expand-lg navbar-dark indigo">
-                <a className="navbar-brand" href="#">mPlatform</a>
+                {/*<a className="navbar-brand" href="#">mPlatform</a>*/}
                 <button className="navbar-toggler" type="button" data-toggle="collapse" 
                     data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
@@ -51,6 +56,15 @@ class NavBar extends React.Component {
                                 className="nav-link"
                                 onClick={() => this.updateActiveNavItem(HOME_ACTIVE_NAVITEM)}>
                                 Home
+                            </Link>
+                        </li>
+                        <li className={"nav-item " + this.state.activeNavItem[ACCESS_ACTIVE_NAVITEM]}>
+                            <Link 
+                                to="/access" 
+                                role="button" 
+                                className="nav-link"
+                                onClick={() => this.updateActiveNavItem(ACCESS_ACTIVE_NAVITEM)}>
+                                Access
                             </Link>
                         </li>
                         <li className={"nav-item " + this.state.activeNavItem[SUPPORT_ACTIVE_NAVITEM]}>

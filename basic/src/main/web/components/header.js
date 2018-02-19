@@ -29,17 +29,19 @@ const Header = (props) => {
             <div className="modal fade" id="userModal" tabIndex="-1" role="dialog" aria-labelledby="userModalLabel" aria-hidden="true">
                 <div className="modal-dialog  modal-sm modal-side modal-top-right" role="document">
                     <div className="modal-content">
+                    {/*
                         <div className="modal-header">
                             <h5 className="modal-title" id="userModalLabel">User Information</h5>
                             <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
+                    */}
                         <div className="modal-body">
                             <div className="">Signed in as</div>
                             <div className=""><strong>{sessionStorage.getItem('email') ? sessionStorage.getItem('email') : ""}</strong></div>
                             <hr className="my-3" style={Styles.thinHr} />
-                            <div className="">Sign Out</div>
+                            <div className="">Sign out</div>
                         </div>
                         {/*<div className="modal-footer">
                             <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>

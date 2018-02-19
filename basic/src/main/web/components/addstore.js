@@ -130,7 +130,7 @@ class AddStore extends React.Component {
                                 </TabList>
                 
                                 <TabPanel className="mt-4 ml-4">
-                                    <div className="mb-3">Regions:</div>
+                                    <div className="mb-3">Region:</div>
                                     <RadioGroup value="us-east-1" horizontal>
                                         <RadioButton value="us-east-1" rootColor="grey" iconSize={20}>US East (N. Virginia)</RadioButton>
                                         <RadioButton value="us-west-1" rootColor="grey" iconSize={20}>US West (N. California)</RadioButton>
@@ -141,7 +141,7 @@ class AddStore extends React.Component {
                                     </RadioGroup>
                                     
                                     <div className="md-form form-sm mt-4">
-                                        <div className="mb-3">Destinations:</div>
+                                        <div className="mb-3">Destination:</div>
                                         <Tabs selectedIndex={this.state.tabIndexDestination} onSelect={tabIndexDestination => this.setState({ tabIndexDestination })}>
                                             <TabList>
                                                 <Tab>S3</Tab>

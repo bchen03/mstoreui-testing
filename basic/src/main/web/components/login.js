@@ -40,9 +40,11 @@ class Login extends React.Component {
     render() {
         return (
             <div className="container-fluid">
+                <header className="mx-3">
+                    <img src="../img/mplatform2.jpg" height="90px" width="90px" alt="mPlatform" />
+                </header>
 
                 <div className="container my-4">
-
                     <form style={{ width: "600px", margin: "0 auto"}}>
                         <p className="h5 text-center mb-4">Sign in</p>
 
@@ -50,12 +52,10 @@ class Login extends React.Component {
                         <MdbInput id="password" name="Your Password" value={MpfUtils.emptyIfFalsy(this.state.inputs[1])} inputChanged={(e) => this.inputChanged(1, e)} />
 
                         <div className="text-center">                        
-                            <a className="btn btn-default btn-sm" onClick={this.loginClicked}>Login</a>
+                            <a className="btn btn-primary btn-sm" onClick={this.loginClicked}>Sign in</a>
                         </div>
                     </form>
-
                 </div>
-
             </div>
         );
     }
