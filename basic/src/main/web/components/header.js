@@ -8,11 +8,9 @@ import "node-waves";
 import "bootstrap";
 import "mdbootstrap";
 
-const Header = (props) => {
+import Styles from './styles';
 
-    const userClicked = () => {
-        alert("clicked");
-    };
+const Header = (props) => {
 
     return (
         <div>
@@ -38,7 +36,10 @@ const Header = (props) => {
                             </button>
                         </div>
                         <div className="modal-body">
-                            <div className="">{sessionStorage.getItem('email') ? sessionStorage.getItem('email') : ""}</div>
+                            <div className="">Signed in as</div>
+                            <div className=""><strong>{sessionStorage.getItem('email') ? sessionStorage.getItem('email') : ""}</strong></div>
+                            <hr className="my-3" style={Styles.thinHr} />
+                            <div className="">Sign Out</div>
                         </div>
                         {/*<div className="modal-footer">
                             <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -46,9 +47,6 @@ const Header = (props) => {
                     </div>
                 </div>
             </div>
-                                
-                            
-
 
         </div>
     );

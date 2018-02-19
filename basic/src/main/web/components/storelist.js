@@ -71,13 +71,14 @@ class StoreList extends React.Component {
                 <tr key={item.id}>
                     <td><Link to={"/stores/" + item.id}>{item.title}</Link></td>
                     <td><Link to={"/stores/" + item.id}>{item.description}</Link></td>
+                    <td><Link to={"/stores/" + item.id}>AWS - US East (N. Virginia)</Link></td>
                     <td><Link to={"/stores/" + item.id}>{this.buildDestinationText(item)}</Link></td>
                     <td style={{textAlign: "center", verticalAlign: "middle"}}><Link to={"/stores/" + item.id}><i className="fa fa-gear"/></Link></td>
                 </tr>
         );
 
         if (storeList.length === 0) {
-            storeList = <tr><td>No stores found</td><td></td><td></td><td></td></tr>;
+            storeList = <tr><td>No stores found</td><td></td><td></td><td></td><td></td></tr>;
         }
 
         return (
@@ -96,8 +97,9 @@ class StoreList extends React.Component {
                     <thead>
                     <tr>
                         <th>Name</th>
-                        <th>Description</th>
-                        <th style={{width: "50%"}}>Destination</th>
+                        <th style={{width: "25%"}}>Description</th>
+                        <th>Provider</th>
+                        <th style={{width: "45%"}}>Destination</th>
                         <th style={{width: "60px"}}></th>
                     </tr>
                     </thead>
