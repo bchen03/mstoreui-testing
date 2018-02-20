@@ -28,7 +28,7 @@ const App = (props) => {
 					<Route path="/stores/:storeId" component={StoreContainer}/>
 					<Route path="/subscriptions/:subscriptionId" component={SubscriptionContainer}/>
 					<Route path="/access" component={Access}/>
-					<Route path="/newdataaccess/:storeId" component={NewDataAccessContainer}/>
+					<Route path="/newdataaccess" component={NewDataAccessContainer}/>
 					<Route path="/addstore" component={AddStore}/>
 					<Route path="/support" component={SupportPage}/>
 					<Redirect to="/" />

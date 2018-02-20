@@ -30,7 +30,8 @@ class Store extends React.Component {
                     <div className="my-5"></div>
                     <FeedList 
                         storeid={this.props.match.params.storeId}
-                        layout={this.props.feeds} />
+                        feeds={this.props.feeds}
+                        nexturl="/subscriptions/0" />
                 </main>
             </div>
 		)

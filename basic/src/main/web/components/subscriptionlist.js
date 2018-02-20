@@ -20,6 +20,7 @@ class SubscriptionList extends React.Component {
 
                 const toObj = {
                     pathname: "/subscriptions/" + item.id,
+                    storeid: this.props.storeid,
                     subscription: item
                 };
 

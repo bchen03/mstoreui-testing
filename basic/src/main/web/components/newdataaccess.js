@@ -39,7 +39,7 @@ class NewDataAccess extends React.Component {
         this.inputChanged = this.inputChanged.bind(this);
         this.networksUpdated = this.networksUpdated.bind(this);
         this.doSave = this.doSave.bind(this);
-        this.backLocation = this.backLocation.bind(this);
+        this.goBack = this.goBack.bind(this);
 	}
 
     inputChanged(index, e) {
@@ -63,14 +63,6 @@ class NewDataAccess extends React.Component {
     }
 
     doSave() {
-        if (!this.props.location.newdataaccess || 
-            !this.props.location.newdataaccess.storeid) {
-            console.error("NewDataAccess.doSave error: Store id is missing");
-            return;
-        }
-
-        const storeid = this.props.location.newdataaccess.storeid;
-
         if (this.state.inputs.length <= NEWDATAACCESSNAME) {
             console.error("NewDataAccess.doSave error: Data Access name is missing");
             return;
@@ -104,7 +96,7 @@ class NewDataAccess extends React.Component {
         //     .post('http://localhost:8090/v1/newdataaccess', newDataAccess)
         //     .then(response => {
         //         console.log("NewDataAccess.doSave success:", response);
-        //         this.props.history.push("/stores/" + storeid);
+        //         this.goBack();
         //     })
         //     .catch(err => {
         //         console.log("NewDataAccess.doSave error:", err);
@@ -112,16 +104,8 @@ class NewDataAccess extends React.Component {
         //     });
     }
 
-    backLocation() {
-        let location = "/stores/0";
-        if (this.props.location && 
-            this.props.location.newdataaccess && 
-            this.props.location.newdataaccess.storeid) {
-            location = this.props.location.newdataaccess.storeid === "666" ?
-                location = "/access" :
-                location = "/stores/" + this.props.location.newdataaccess.storeid;
-        }
-        return location;
+    goBack() {
+        this.props.history.goBack();
     }
 
 
@@ -206,7 +190,7 @@ class NewDataAccess extends React.Component {
                     <div className="row">
                         <div className="col my-3">
                             <button type="button" className="btn btn-primary" onClick={this.doSave}>Submit</button>
-                            <Link to={this.backLocation()} role="button" className="btn btn-primary">Back</Link>
+                            <a onClick={this.goBack} className="btn btn-primary">Back</a>
                         </div>
                     </div>
 

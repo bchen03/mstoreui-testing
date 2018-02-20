@@ -44,20 +44,20 @@ class Subscription extends React.Component {
             savedEndDate: ""
         };
 
-        this.initParameters();
+        this.initSubscription();
 
         this.inputChanged = this.inputChanged.bind(this);
-        this.initParameters = this.initParameters.bind(this);
+        this.initSubscription = this.initSubscription.bind(this);
         this.networksUpdated = this.networksUpdated.bind(this);
         this.advertisersUpdated = this.advertisersUpdated.bind(this);
         this.startDateChanged = this.startDateChanged.bind(this);
         this.endDateChanged = this.endDateChanged.bind(this);
         this.doSave = this.doSave.bind(this);
+        this.goBack = this.goBack.bind(this);
 	}
 
-    initParameters() {
-        if (!this.props.location.subscription ||
-            !this.props.location.subscription.parameters)
+    initSubscription() {
+        if (!this.props.location.subscription)
             return;
 
         console.log("Subscriptions: ", this.props.location.subscription, ", av networks: ", this.state.availableNetworks);
@@ -72,6 +72,9 @@ class Subscription extends React.Component {
             this.state.inputs[SUBSCRIPTIONDESCRIPTION] = this.props.location.subscription.description;
         }
 
+        if (!this.props.location.subscription.parameters)
+            return;
+
         if (this.props.location.subscription.parameters.network_id) {
             const calcAvailableNetworks = this.state.availableNetworks.filter(aitem => {
                 return this.props.location.subscription.parameters.network_id.split(",")
@@ -83,7 +86,7 @@ class Subscription extends React.Component {
                     .findIndex(item => item === aitem.value) !== -1; 
             });
 
-            console.log("Subscription.initParameters networks: ", calcAvailableNetworks, ",", calcSelectedNetworks)
+            console.log("Subscription.initSubscription networks: ", calcAvailableNetworks, ",", calcSelectedNetworks)
 
             this.state.availableNetworks = calcAvailableNetworks;
             this.state.selectedNetworks = calcSelectedNetworks;
@@ -100,7 +103,7 @@ class Subscription extends React.Component {
                 .findIndex(item => item === aitem.value) !== -1; 
             });
 
-            console.log("Subscription.initParameters advertisers: ", calcAvailableAdvertisers, ",", calcSelectedAdvertisers)
+            console.log("Subscription.initSubscription advertisers: ", calcAvailableAdvertisers, ",", calcSelectedAdvertisers)
 
             this.state.availableAdvertisers = calcAvailableAdvertisers;
             this.state.selectedAdvertisers = calcSelectedAdvertisers;
@@ -161,13 +164,12 @@ class Subscription extends React.Component {
     }
 
     doSave() {
-        if (!this.props.location.subscription || 
-            !this.props.location.subscription.storeid) {
+        if (!this.props.location.storeid) {
             console.error("Subscription.doSave error: Store id is missing");
             return;
         }
 
-        const storeid = this.props.location.subscription.storeid;
+        const storeid = this.props.location.storeid;
 
         // TODO: Only create subscriptions for now
         if (this.props.match.params.subscriptionId !== "0") {
@@ -272,19 +274,11 @@ class Subscription extends React.Component {
             });
     }
 
+    goBack() {
+        this.props.history.goBack();
+    }
+
 	render() {
-        const toObj = {
-            pathname: "/newdataaccess/" + 
-                    (this.props.location &&
-                    this.props.location.subscription && 
-                    this.props.location.subscription.storeid ? 
-                    this.props.location.subscription.storeid :
-                    "0"),
-            newdataaccess: this.props.location.subscription
-        };
-
-        console.log("Subscription.render toObj: ", toObj);
-
 		return (
 		    <div className="container-fluid">
                 <Header />
@@ -351,7 +345,7 @@ class Subscription extends React.Component {
                                 <span className="badge badge-pill orange darken-2 float-right">
                                     <span className="fa fa-plus mr-1"></span>
                                     <Link 
-                                        to={toObj} 
+                                        to="/newdataaccess" 
                                         role="button" 
                                         style={{color: "white"}} >
                                         Request New Data Access
@@ -415,14 +409,7 @@ class Subscription extends React.Component {
                     <div className="row">
                         <div className="col my-3">
                             <button type="button" className="btn btn-primary" onClick={this.doSave}>Save</button>
-                            <Link to={
-                                "/stores/" + 
-                                (this.props.location &&
-                                this.props.location.subscription && 
-                                this.props.location.subscription.storeid ? 
-                                this.props.location.subscription.storeid :
-                                "0")
-                            } role="button" className="btn btn-primary">Back</Link>
+                            <a onClick={this.goBack} className="btn btn-primary">Back</a>
                         </div>
                     </div>
 

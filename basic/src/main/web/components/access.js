@@ -67,7 +67,6 @@ class Access extends React.Component {
                                 <th>Name</th>
                                 <th style={{width: "40%"}}>Description</th>
                                 <th>Created On</th>
-                                {/*<th>Filters</th>*/}
                                 <th style={{width: "60px"}}></th>
                             </tr>
                             </thead>
@@ -76,14 +75,12 @@ class Access extends React.Component {
                                 <td><Link to="/access">Beyond Interactive</Link></td>
                                 <td><Link to="/access">Beyond Interactive description</Link></td>
                                 <td><Link to="/access">Jan 23, 2018</Link></td>
-                                {/*<td><Link to={toObj}>{item.filters}</Link></td>*/}
                                 <td style={{textAlign: "center", verticalAlign: "middle"}}><Link to="/access"><i className="fa fa-gear"/></Link></td>
                             </tr>
                             <tr key={2}>
                                 <td><Link to="/access">Digital Edge - Full Serve</Link></td>
                                 <td><Link to="/access">Digital Edge - Full Serve description</Link></td>
                                 <td><Link to="/access">Jan 13, 2018</Link></td>
-                                {/*<td><Link to={toObj}>{item.filters}</Link></td>*/}
                                 <td style={{textAlign: "center", verticalAlign: "middle"}}><Link to="/access"><i className="fa fa-gear"/></Link></td>
                             </tr>
 
@@ -93,10 +90,10 @@ class Access extends React.Component {
 
                     <br /><br />
 
-
                     <FeedList 
-                        storeid="666"
-                        layout={this.feeds} />
+                        storeid="0"
+                        feeds={this.feeds}
+                        nexturl="/newdataaccess" />
                 </main>
             </div>
 		)

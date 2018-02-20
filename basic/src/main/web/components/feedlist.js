@@ -19,15 +19,14 @@ class FeedList extends React.Component {
         };
 
         const toObj = {
-            pathname: this.props.storeid === "666" ? "/newdataaccess/666" : "/subscriptions/0",
-            subscription: { storeid: this.props.storeid },
-            newdataaccess: { storeid: this.props.storeid }
+            pathname: this.props.nexturl,
+            storeid: this.props.storeid
         };
 
         const feedList = 
-            this.props.layout.length === 0 ?
+            this.props.feeds.length === 0 ?
             <div className="">No Data Sources exist</div> : 
-            this.props.layout.map(item => 
+            this.props.feeds.map(item => 
                 <div className="card" style={cardStyle} key={item.id}>
                     <div className="card-body">
                         <h3 className="card-title">
@@ -62,7 +61,7 @@ class FeedList extends React.Component {
 
 FeedList.propTypes = {
     storeid: PropTypes.string.isRequired,
-    layout: PropTypes.array.isRequired
+    feeds: PropTypes.array.isRequired
 }
 
 export default FeedList;
