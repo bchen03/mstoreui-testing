@@ -26,7 +26,7 @@
     "build": "webpack",
     "watch": "webpack --watch -d",
     "copy": "copy src\\main\\resources\\templates\\index.html src\\main\\web\\",
-    "dev": "npm run copy && webpack -d && webpack-dev-server",
+    "dev": "npm run copy && webpack -d && webpack-dev-server --hot --inline",
     "prod": "npm run copy && webpack -p",
     "dev-server": "webpack-dev-server",
     "test": "jest --verbose"
