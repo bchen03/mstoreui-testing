@@ -66,6 +66,8 @@ class StoreList extends React.Component {
             </div>
         */}     
 
+        console.log("StoreList.render stores:", this.props.stores);
+
         let storeList = 
             this.props.stores.map(item => 
                 <tr key={item.id}>

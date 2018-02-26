@@ -96,7 +96,7 @@ function withNewDataAccess(WrappedComponent) {
                     <Header />
                     <NavBar />
                     <div className="mx-5">
-                        <div>Error: {this.state.error}</div>
+                        <div>Error: {this.state.error.toString()}</div>
                     </div>
                 </div> :
                 <WrappedComponent 
