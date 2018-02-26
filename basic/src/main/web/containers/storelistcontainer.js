@@ -119,8 +119,10 @@ function withStoreList(WrappedComponent) {
         }
 
         render() {
+            console.log("StoreListContainer.render: ", this.state.stores);
+
             return this.state.isLoading ? <div>Loading data, please wait...</div> :
-                this.state.error !== "" ? <div>Error: {this.state.error}</div> : 
+                this.state.error !== "" ? <div>Error: {this.state.error.toString()}</div> : 
                 <WrappedComponent stores={this.state.stores} {...this.props} />;
         }
     }

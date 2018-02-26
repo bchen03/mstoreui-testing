@@ -196,7 +196,7 @@ function withStore(WrappedComponent) {
                     <Header />
                     <NavBar />
                     <main className="mx-5 my-4">
-                        <div>Error: {this.state.error}</div>
+                        <div>Error: {this.state.error.toString()}</div>
                     </main>
                 </div> :
                 <WrappedComponent 

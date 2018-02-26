@@ -48,6 +48,12 @@ module.exports = {
                 }
             },
             {
+                // https://www.robinwieruch.de/react-eslint-webpack-babel/
+                test: /\.js$/,
+                exclude: /node_modules/,
+                use: ['babel-loader', 'eslint-loader']
+            },
+            {
                 test: /\.(css|scss)$/,
                 use: ['style-loader', 'css-loader', 'sass-loader']
             },
