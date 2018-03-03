@@ -4,9 +4,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
+import Subscription from './subscription';
+
 import Styles from './styles';
 
-// Subscriptions
+
 class SubscriptionList extends React.Component {
     constructor(props) {
         super(props);
@@ -16,24 +18,9 @@ class SubscriptionList extends React.Component {
     render() {
         let subscriptionList =
             this.props.subscriptions
-            .map(item => {
-
-                const toObj = {
-                    pathname: "/subscriptions/" + item.id,
-                    storeid: this.props.storeid,
-                    subscription: item
-                };
-
-                return (
-                    <tr key={item.id}>
-                        <td><Link to={toObj}>{item.name}</Link></td>
-                        <td><Link to={toObj}>{item.description}</Link></td>
-                        <td><Link to={toObj}>{item.createdon}</Link></td>
-                        {/*<td><Link to={toObj}>{item.filters}</Link></td>*/}
-                        <td style={{textAlign: "center", verticalAlign: "middle"}}><Link to={toObj}><i className="fa fa-gear"/></Link></td>
-                    </tr>
-                );
-            });
+            .map(item => (
+                <Subscription key={item.id} storeid={this.props.storeid} item={item} />
+            ));
 
         if (subscriptionList.length === 0) {
             subscriptionList = <tr><td>No subscriptions found</td><td></td><td></td><td></td><td></td></tr>;
@@ -70,3 +57,10 @@ SubscriptionList.propTypes = {
 }
 
 export default SubscriptionList;
+
+
+
+
+
+
+
