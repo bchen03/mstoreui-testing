@@ -1,4 +1,5 @@
 *.iml
+*.map
 .idea
 target
 bower_components
