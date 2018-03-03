@@ -4,11 +4,11 @@ import React from 'react';
 import { Router, Route, Switch, Redirect } from 'react-router-dom';
 import createBrowserHistory from 'history/createBrowserHistory'
 
-import Login from './login';
-import Home from './home';
-import Access from './access';
-import AddStore from './addstore';
-import SupportPage from './supportpage';
+import LoginPage from '../pages/loginpage';
+import HomePage from '../pages/homepage';
+import AccessPage from '../pages/accesspage';
+import AddStorePage from '../pages/addstorepage';
+import SupportPage from '../pages/supportpage';
 import StoreContainer from '../containers/storecontainer';
 import SubscriptionContainer from '../containers/subscriptioncontainer';
 import NewDataAccessContainer from '../containers/newdataaccesscontainer';
@@ -23,13 +23,13 @@ const App = (props) => {
 		<Router history={history}>
 			<div>
 				<Switch>
-					<Route exact path="/" component={Login}/>
-					<Route path="/home" component={Home}/>
+					<Route exact path="/" component={LoginPage}/>
+					<Route path="/home" component={HomePage}/>
 					<Route path="/stores/:storeId" component={StoreContainer}/>
 					<Route path="/subscriptions/:subscriptionId" component={SubscriptionContainer}/>
-					<Route path="/access" component={Access}/>
+					<Route path="/access" component={AccessPage}/>
 					<Route path="/newdataaccess" component={NewDataAccessContainer}/>
-					<Route path="/addstore" component={AddStore}/>
+					<Route path="/addstore" component={AddStorePage}/>
 					<Route path="/support" component={SupportPage}/>
 					<Redirect to="/" />
 				</Switch>

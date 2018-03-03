@@ -4,7 +4,7 @@ import React from 'react';
 
 import Header from '../components/header';
 import NavBar from '../components/navbar';
-import NewDataAccess from '../components/newdataaccess';
+import NewDataAccessPage from '../pages/newdataaccesspage';
 
 
 function withNewDataAccess(WrappedComponent) {
@@ -106,6 +106,6 @@ function withNewDataAccess(WrappedComponent) {
     }
 }
 
-const NewDataAccessContainer = withNewDataAccess(NewDataAccess);
+const NewDataAccessContainer = withNewDataAccess(NewDataAccessPage);
 
 export default NewDataAccessContainer;

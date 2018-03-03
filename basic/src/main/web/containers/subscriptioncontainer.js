@@ -4,7 +4,7 @@ import React from 'react';
 
 import Header from '../components/header';
 import NavBar from '../components/navbar';
-import Subscription from '../components/subscription';
+import SubscriptionPage from '../pages/subscriptionpage';
 
 
 function withSubscription(WrappedComponent) {
@@ -149,6 +149,6 @@ function withSubscription(WrappedComponent) {
     }
 }
 
-const SubscriptionContainer = withSubscription(Subscription);
+const SubscriptionContainer = withSubscription(SubscriptionPage);
 
 export default SubscriptionContainer;

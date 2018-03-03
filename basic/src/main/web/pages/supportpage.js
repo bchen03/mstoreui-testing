@@ -3,8 +3,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Header from './header';
-import NavBar from './navbar';
+import Header from '../components/header';
+import NavBar from '../components/navbar';
 
 
 const SupportPage = () => (

@@ -3,11 +3,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import MpfUtils from './mpfutils';
 
-import MdbInput from './mdbinput';
+import MpfUtils from '../components/mpfutils';
+import MdbInput from '../components/mdbinput';
 
-class Login extends React.Component {
+class LoginPage extends React.Component {
     constructor(props) {
         super(props);
 
@@ -20,7 +20,7 @@ class Login extends React.Component {
     }
 
     inputChanged(index, e) {
-        console.log("Login.inputChanged index:", index, ", value: ", e.target.value); 
+        console.log("LoginPage.inputChanged index:", index, ", value: ", e.target.value); 
         let newInputs = [...this.state.inputs];
         newInputs[index] = e.target.value;
         this.setState({ inputs: newInputs }); 
@@ -28,7 +28,7 @@ class Login extends React.Component {
 
     loginClicked(e) {
         e.preventDefault();
-        console.log("Login.loginClicked...");
+        console.log("LoginPage.loginClicked...");
 
         if (this.state.inputs[0]) {
             sessionStorage.setItem('email', this.state.inputs[0]);
@@ -61,4 +61,4 @@ class Login extends React.Component {
     }
 }
 
-export default Login;
+export default LoginPage;

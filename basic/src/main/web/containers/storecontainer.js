@@ -5,7 +5,7 @@ import axios from 'axios';
 
 import Header from '../components/header';
 import NavBar from '../components/navbar';
-import Store from '../components/store';
+import StorePage from '../pages/storepage';
 
 import {mapSubscriptionState} from '../selectors/storeselector';
 
@@ -207,7 +207,7 @@ function withStore(WrappedComponent) {
     };
 }
 
-const StoreContainer = withStore(Store);
+const StoreContainer = withStore(StorePage);
 
 export default StoreContainer;
 

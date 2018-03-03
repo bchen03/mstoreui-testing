@@ -8,10 +8,10 @@ import axios from 'axios';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { RadioGroup, RadioButton } from 'react-radio-buttons';
 
-import Header from './header';
-import NavBar from './navbar';
-import MdbInput from './mdbinput';
-import MpfUtils from './mpfutils';
+import Header from '../components/header';
+import NavBar from '../components/navbar';
+import MdbInput from '../components/mdbinput';
+import MpfUtils from '../components/mpfutils';
 
 import 'react-tabs/style/react-tabs.css';
 
@@ -23,7 +23,7 @@ const S3BUCKET = 4;
 const S3PREFIX = 5;
 const S3REGION = 6; 
 
-class AddStore extends React.Component {
+class AddStorePage extends React.Component {
     constructor(props) {
         super(props);
 
@@ -39,7 +39,7 @@ class AddStore extends React.Component {
     }
 
     inputChanged(index, e) {
-        console.log("AddStore.inputChanged index:", index, ", value: ", e.target.value); 
+        console.log("AddStorePage.inputChanged index:", index, ", value: ", e.target.value); 
         let newInputs = [...this.state.inputs];
         newInputs[index] = e.target.value;
         this.setState({ inputs: newInputs }); 
@@ -47,13 +47,13 @@ class AddStore extends React.Component {
 
     createClicked(e) {
         e.preventDefault();
-        console.log("AddStore.createClicked tabIndexDestination: ", this.state.tabIndexDestination,  "inputs: ", this.state.inputs);
+        console.log("AddStorePage.createClicked tabIndexDestination: ", this.state.tabIndexDestination,  "inputs: ", this.state.inputs);
         this.createStore();
     }
 
     createStore() {
         if (this.state.tabIndexDestination !== 0) {
-            console.error("AddStore.createStore: Only S3 is supported at the moment...");
+            console.error("AddStorePage.createStore: Only S3 is supported at the moment...");
             return;
         }
 
@@ -91,16 +91,16 @@ class AddStore extends React.Component {
             ]
         };
 
-        console.log("AddStore newStore:", newStore);
+        console.log("AddStorePage newStore:", newStore);
 
         axios
             .post('http://localhost:8090/v1/stores', newStore)
             .then(response => {
-                console.log("AddStore.postStore success:", response);
+                console.log("AddStorePage.postStore success:", response);
                 this.props.history.push("/home");
             })
             .catch(err => {
-                console.log("AddStore.postStore error:", err);
+                console.log("AddStorePage.postStore error:", err);
                 // TODO: Show error in view
             });
     }
@@ -245,6 +245,6 @@ class AddStore extends React.Component {
     }
 }
 
-export default AddStore;
+export default AddStorePage;
 
 

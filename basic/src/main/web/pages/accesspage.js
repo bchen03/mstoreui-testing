@@ -3,17 +3,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import Header from './header';
-import NavBar from './navbar';
-import FeedList from './feedlist';
+import Header from '../components/header';
+import NavBar from '../components/navbar';
+import FeedList from '../components/feedlist';
 
-import Styles from './styles';
+import Styles from '../components/styles';
 
-// Access
-class Access extends React.Component {
+
+class AccessPage extends React.Component {
 	constructor(props) {
         super(props);
-        console.log("Access.props.match: ", this.props.match);
+        console.log("AccessPage.props.match: ", this.props.match);
 
         this.feeds = [
             {
@@ -100,4 +100,4 @@ class Access extends React.Component {
 	}
 }
 
-export default Access;
+export default AccessPage;

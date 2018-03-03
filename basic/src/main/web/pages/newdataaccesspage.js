@@ -7,14 +7,14 @@ import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import axios from 'axios';
 
-import Styles from './styles';
-import Header from './header';
-import NavBar from './navbar';
-import SelectionList from './selectionlist';
-import MdbInput from './mdbinput';
-import MpfUtils from './mpfutils';
+import Styles from '../components/styles';
+import Header from '../components/header';
+import NavBar from '../components/navbar';
+import SelectionList from '../components/selectionlist';
+import MdbInput from '../components/mdbinput';
+import MpfUtils from '../components/mpfutils';
 
-//import MockDynFeedList from './dynfeedlist';
+//import MockDynFeedList from '../components/dynfeedlist';
 
 import 'react-datepicker/dist/react-datepicker.css';
 
@@ -22,12 +22,12 @@ const NEWDATAACCESSNAME = 0;
 const NEWDATAACCESSDESCRIPTION = 1;
 
 
-class NewDataAccess extends React.Component {
+class NewDataAccessPage extends React.Component {
 	constructor(props) {
 		super(props);
 
 		//console.log("NewDataAccess:href: ", window.location.href);
-        console.log("NewDataAccess.props: ", this.props);
+        console.log("NewDataAccessPage.props: ", this.props);
 
 		this.state = {
             inputs: [],
@@ -43,14 +43,14 @@ class NewDataAccess extends React.Component {
 	}
 
     inputChanged(index, e) {
-        console.log("NewDataAccess.inputChanged index:", index, ", value: ", e.target.value); 
+        console.log("NewDataAccessPage.inputChanged index:", index, ", value: ", e.target.value); 
         let newInputs = [...this.state.inputs];
         newInputs[index] = e.target.value;
         this.setState({ inputs: newInputs }); 
     }
 
     networksUpdated(available, selected) {
-        console.log("NewDataAccess.networksUpdated: ", available, ",", selected);
+        console.log("NewDataAccessPage.networksUpdated: ", available, ",", selected);
 
         this.setState({
             availableNetworks: available,
@@ -64,12 +64,12 @@ class NewDataAccess extends React.Component {
 
     doSave() {
         if (this.state.inputs.length <= NEWDATAACCESSNAME) {
-            console.error("NewDataAccess.doSave error: Data Access name is missing");
+            console.error("NewDataAccessPage.doSave error: Data Access name is missing");
             return;
         }
 
         if (this.state.inputs.length <= NEWDATAACCESSDESCRIPTION) {
-            console.error("NewDataAccess.doSave error: Data Access description is missing");
+            console.error("NewDataAccessPage.doSave error: Data Access description is missing");
             return;
         }
 
@@ -81,7 +81,7 @@ class NewDataAccess extends React.Component {
             networks = networks.slice(0, -1);
 
         if (networks.length === 0) {
-            console.error("NewDataAccess.doSave error: No networks selected");
+            console.error("NewDataAccessPage.doSave error: No networks selected");
             return;
         }
 
@@ -90,16 +90,16 @@ class NewDataAccess extends React.Component {
         });
 
         const newDataAccess = {};
-        console.log("NewDataAccess.doSave newDataAccess: ", newDataAccess);
+        console.log("NewDataAccessPage.doSave newDataAccess: ", newDataAccess);
 
         //   axios
         //     .post('http://localhost:8090/v1/newdataaccess', newDataAccess)
         //     .then(response => {
-        //         console.log("NewDataAccess.doSave success:", response);
+        //         console.log("NewDataAccessPage.doSave success:", response);
         //         this.goBack();
         //     })
         //     .catch(err => {
-        //         console.log("NewDataAccess.doSave error:", err);
+        //         console.log("NewDataAccessPage.doSave error:", err);
         //         // TODO: Show error in view
         //     });
     }
@@ -219,9 +219,9 @@ class NewDataAccess extends React.Component {
 	}
 }
 
-NewDataAccess.propTypes = {
+NewDataAccessPage.propTypes = {
     availableNetworks: PropTypes.array.isRequired
 }
 
-export default NewDataAccess;
+export default NewDataAccessPage;
 

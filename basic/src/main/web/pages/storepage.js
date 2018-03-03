@@ -2,18 +2,17 @@
 
 import React from 'react';
 
-import Header from './header';
-import NavBar from './navbar';
-import SubscriptionList from './subscriptionlist';
-import FeedList from './feedlist';
-import Destinations from './destinations';
+import Header from '../components/header';
+import NavBar from '../components/navbar';
+import SubscriptionList from '../components/subscriptionlist';
+import FeedList from '../components/feedlist';
+import Destinations from '../components/destinations';
 
 
-// Store
-class Store extends React.Component {
+class StorePage extends React.Component {
 	constructor(props) {
         super(props);
-        console.log("Store.props.match: ", this.props.match);
+        console.log("StorePage.props.match: ", this.props.match);
 	}
 
 	render() {
@@ -38,4 +37,4 @@ class Store extends React.Component {
 	}
 }
 
-export default Store;
+export default StorePage;

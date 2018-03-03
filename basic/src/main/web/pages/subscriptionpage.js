@@ -8,14 +8,14 @@ import moment from 'moment';
 import axios from 'axios';
 import { RadioGroup, RadioButton } from 'react-radio-buttons';
 
-import Styles from './styles';
-import Header from './header';
-import NavBar from './navbar';
-import SelectionList from './selectionlist';
-import MdbInput from './mdbinput';
-import MpfUtils from './mpfutils';
+import Styles from '../components/styles';
+import Header from '../components/header';
+import NavBar from '../components/navbar';
+import SelectionList from '../components/selectionlist';
+import MdbInput from '../components/mdbinput';
+import MpfUtils from '../components/mpfutils';
 
-//import MockDynFeedList from './dynfeedlist';
+//import MockDynFeedList from '../components/dynfeedlist';
 
 import 'react-datepicker/dist/react-datepicker.css';
 
@@ -23,12 +23,12 @@ const SUBSCRIPTIONNAME = 0;
 const SUBSCRIPTIONDESCRIPTION = 1;
 
 
-class Subscription extends React.Component {
+class SubscriptionPage extends React.Component {
 	constructor(props) {
 		super(props);
 
-		//console.log("Subscription:href: ", window.location.href);
-        console.log("Subscription.props: ", this.props);
+		//console.log("SubscriptionPage:href: ", window.location.href);
+        console.log("SubscriptionPage.props: ", this.props);
 
 		this.state = {
             inputs: [],
@@ -86,7 +86,7 @@ class Subscription extends React.Component {
                     .findIndex(item => item === aitem.value) !== -1; 
             });
 
-            console.log("Subscription.initSubscription networks: ", calcAvailableNetworks, ",", calcSelectedNetworks)
+            console.log("SubscriptionPage.initSubscription networks: ", calcAvailableNetworks, ",", calcSelectedNetworks)
 
             this.state.availableNetworks = calcAvailableNetworks;
             this.state.selectedNetworks = calcSelectedNetworks;
@@ -103,7 +103,7 @@ class Subscription extends React.Component {
                 .findIndex(item => item === aitem.value) !== -1; 
             });
 
-            console.log("Subscription.initSubscription advertisers: ", calcAvailableAdvertisers, ",", calcSelectedAdvertisers)
+            console.log("SubscriptionPage.initSubscription advertisers: ", calcAvailableAdvertisers, ",", calcSelectedAdvertisers)
 
             this.state.availableAdvertisers = calcAvailableAdvertisers;
             this.state.selectedAdvertisers = calcSelectedAdvertisers;
@@ -120,14 +120,14 @@ class Subscription extends React.Component {
     }
 
     inputChanged(index, e) {
-        console.log("Subscription.inputChanged index:", index, ", value: ", e.target.value); 
+        console.log("SubscriptionPage.inputChanged index:", index, ", value: ", e.target.value); 
         let newInputs = [...this.state.inputs];
         newInputs[index] = e.target.value;
         this.setState({ inputs: newInputs }); 
     }
 
     networksUpdated(available, selected) {
-        console.log("Subscription.networksUpdated: ", available, ",", selected);
+        console.log("SubscriptionPage.networksUpdated: ", available, ",", selected);
 
         this.setState({
             availableNetworks: available,
@@ -136,7 +136,7 @@ class Subscription extends React.Component {
     }
 
     advertisersUpdated(available, selected) {
-        console.log("Subscription.advertisersUpdated: ", available, ",", selected);
+        console.log("SubscriptionPage.advertisersUpdated: ", available, ",", selected);
 
         this.setState({
             availableAdvertisers: available,
@@ -165,7 +165,7 @@ class Subscription extends React.Component {
 
     doSave() {
         if (!this.props.location.storeid) {
-            console.error("Subscription.doSave error: Store id is missing");
+            console.error("SubscriptionPage.doSave error: Store id is missing");
             return;
         }
 
@@ -178,12 +178,12 @@ class Subscription extends React.Component {
         }
         
         if (this.state.inputs.length <= SUBSCRIPTIONNAME) {
-            console.error("Subscription.doSave error: Subscription name is missing");
+            console.error("SubscriptionPage.doSave error: Subscription name is missing");
             return;
         }
 
         if (this.state.inputs.length <= SUBSCRIPTIONDESCRIPTION) {
-            console.error("Subscription.doSave error: Subscription description is missing");
+            console.error("SubscriptionPage.doSave error: Subscription description is missing");
             return;
         }
 
@@ -205,7 +205,7 @@ class Subscription extends React.Component {
         //     networks = networks.slice(0, -1);
 
         if (networks.length === 0) {
-            console.error("Subscription.doSave error: No networks selected");
+            console.error("SubscriptionPage.doSave error: No networks selected");
             return;
         }
 
@@ -217,7 +217,7 @@ class Subscription extends React.Component {
             advertisers = advertisers.slice(0, -1);
 
         if (advertisers.length === 0) {
-            console.error("Subscription.doSave error: No advertisers selected");
+            console.error("SubscriptionPage.doSave error: No advertisers selected");
             return;
         }
 
@@ -260,16 +260,16 @@ class Subscription extends React.Component {
             ]
           };
 
-        console.log("Subscriptions.doSave newSubscription: ", newSubscription);
+        console.log("SubscriptionPage.doSave newSubscription: ", newSubscription);
 
           axios
             .post('http://localhost:8090/v1/subscriptions', newSubscription)
             .then(response => {
-                console.log("Subscriptions.doSave success:", response);
+                console.log("SubscriptionPage.doSave success:", response);
                 this.props.history.push("/stores/" + storeid);
             })
             .catch(err => {
-                console.log("Subscriptions.doSave error:", err);
+                console.log("SubscriptionPage.doSave error:", err);
                 // TODO: Show error in view
             });
     }
@@ -441,10 +441,10 @@ class Subscription extends React.Component {
 	}
 }
 
-Subscription.propTypes = {
+SubscriptionPage.propTypes = {
     availableNetworks: PropTypes.array.isRequired,
     availableAdvertisers: PropTypes.array.isRequired
 }
 
-export default Subscription;
+export default SubscriptionPage;
 

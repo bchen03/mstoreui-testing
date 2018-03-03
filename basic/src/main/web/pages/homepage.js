@@ -2,11 +2,11 @@
 
 import React from 'react';
 
-import Header from './header';
-import NavBar from './navbar';
+import Header from '../components/header';
+import NavBar from '../components/navbar';
 import StoreListContainer from '../containers/storelistcontainer';
 
-const Home = (props) => (
+const HomePage = (props) => (
     <div className="container-fluid">
         <Header />
         <NavBar /> 
@@ -16,4 +16,4 @@ const Home = (props) => (
     </div>
 );
 
-export default Home;
+export default HomePage;
